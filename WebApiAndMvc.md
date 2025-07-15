@@ -178,5 +178,76 @@ Suppose you inject the same service into both a controller and a repository:
 
 ---
 
-Let me know if you want a working code demo showing how all three behave!
+Absolutely! Here's a breakdown of **use cases** for each service lifetime in **ASP.NET Core Dependency Injection**:
+
+---
+
+## 🔹 1. `AddSingleton` – ✅ **Use Cases**
+
+### 🟢 Characteristics:
+
+* Created **once** and reused for the **entire app lifetime**.
+* **Shared across all requests** and users.
+* Best for **thread-safe** and **stateless** objects.
+
+### ✅ Use Cases:
+
+| Use Case                  | Why                                                |
+| ------------------------- | -------------------------------------------------- |
+| **Configuration readers** | Load once and use everywhere.                      |
+| **Logging services**      | Can be reused across components.                   |
+| **Caching services**      | In-memory caches are usually singleton.            |
+| **Static data providers** | Like country/state lists.                          |
+| **API client wrappers**   | e.g., `HttpClientFactory` registered as singleton. |
+
+---
+
+## 🔹 2. `AddScoped` – ✅ **Use Cases**
+
+### 🟡 Characteristics:
+
+* Created **once per HTTP request**.
+* Same instance used **throughout the request lifecycle**.
+
+### ✅ Use Cases:
+
+| Use Case                                          | Why                                                      |
+| ------------------------------------------------- | -------------------------------------------------------- |
+| **Database context (`DbContext`)**                | Ensures consistent unit of work per request.             |
+| **Repository services**                           | Shared within a single web request.                      |
+| **Unit of work patterns**                         | Keep operations grouped within a request.                |
+| **Business services** that maintain request state | Useful for aggregating data or caching during a request. |
+
+---
+
+## 🔹 3. `AddTransient` – ✅ **Use Cases**
+
+### 🔵 Characteristics:
+
+* **New instance every time** it's requested.
+* Ideal for **lightweight, stateless** services.
+
+### ✅ Use Cases:
+
+| Use Case                                                  | Why                                              |
+| --------------------------------------------------------- | ------------------------------------------------ |
+| **Email or SMS sender service**                           | Usually short-lived, no internal state.          |
+| **Input validators**                                      | Created, used, and discarded quickly.            |
+| **Helper utilities** (e.g., date converters, calculators) | No shared state needed.                          |
+| **Logging decorators**                                    | When per-operation instance isolation is needed. |
+
+---
+
+## 🧠 Summary Table
+
+| Lifetime    | Use For                                    | Avoid For                         |
+| ----------- | ------------------------------------------ | --------------------------------- |
+| `Singleton` | Caching, Logging, Configs, Utilities       | Services depending on Scoped ones |
+| `Scoped`    | EF `DbContext`, Repositories, Unit of Work | Long-lived objects or static data |
+| `Transient` | Validators, lightweight utilities          | Heavy objects or shared services  |
+
+---
+
+Let me know if you'd like real code examples of how these are used in a controller or service class.
+
 
