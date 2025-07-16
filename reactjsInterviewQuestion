@@ -1,1 +1,108 @@
 
+** 1.Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
+
+---
+
+### ✅ 1. **Promise**
+
+A **Promise** is a JavaScript object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+
+#### 🔹 Syntax Example:
+
+```javascript
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Success");
+  }, 1000);
+});
+
+promise.then(result => {
+  console.log(result);
+}).catch(error => {
+  console.log(error);
+});
+```
+
+#### 🔸 Key Points:
+
+* Introduced in ES6.
+* Has `.then()` and `.catch()` methods.
+* Manages asynchronous operations.
+* Can be in one of three states: **pending**, **fulfilled**, or **rejected**.
+
+---
+
+### ✅ 2. **async**
+
+The `async` keyword is used to define an **asynchronous function**, which always returns a **Promise**, even if you return a simple value.
+
+#### 🔹 Syntax Example:
+
+```javascript
+async function greet() {
+  return "Hello";
+}
+
+greet().then(console.log);  // Outputs: Hello
+```
+
+#### 🔸 Key Points:
+
+* Marks a function as asynchronous.
+* Automatically wraps the return value in a Promise.
+* Enables the use of `await` inside the function.
+
+---
+
+### ✅ 3. **await**
+
+The `await` keyword is used **inside an async function** to pause execution until a Promise is resolved.
+
+#### 🔹 Syntax Example:
+
+```javascript
+async function getData() {
+  let result = await fetch("https://api.example.com/data");
+  let data = await result.json();
+  console.log(data);
+}
+```
+
+#### 🔸 Key Points:
+
+* Can only be used inside an `async` function.
+* Makes asynchronous code look and behave like synchronous code.
+* Waits for a Promise to resolve or reject.
+
+---
+
+### ⚖️ Comparison Summary
+
+| Feature      | Promise                 | async                                    | await                                   |
+| ------------ | ----------------------- | ---------------------------------------- | --------------------------------------- |
+| Type         | Object                  | Keyword (function modifier)              | Keyword (used inside async functions)   |
+| Purpose      | Handle async operations | Define a function that returns a Promise | Wait for a Promise to resolve           |
+| Syntax Use   | `.then()`, `.catch()`   | `async function name() {}`               | `await someAsyncOperation()`            |
+| Return Value | A Promise               | A Promise                                | Unwrapped value of the resolved Promise |
+| Use Context  | Anywhere                | Function declaration                     | Only inside `async` functions           |
+
+---
+
+### 🧠 Example Using All Together:
+
+```javascript
+function fetchData() {
+  return new Promise(resolve => {
+    setTimeout(() => resolve("Data fetched!"), 1000);
+  });
+}
+
+async function main() {
+  const data = await fetchData();
+  console.log(data);  // Outputs: Data fetched!
+}
+
+main();
+```
+
+Let me know if you want real-time vs promise-based use cases comparison or visual flow.
