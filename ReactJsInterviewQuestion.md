@@ -1,4 +1,4 @@
-The concepts of **Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
+**1. Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
 
 ---
 
@@ -104,4 +104,105 @@ async function main() {
 main();
 ```
 
-Let me know if you want real-time vs promise-based use cases comparison or visual flow.
+**2.hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
+
+---
+
+## 🔄 Summary Table: Sync vs Async Behavior in React Hooks
+
+| Hook                   | Sync/Async                                     | Explanation                                                                         |
+| ---------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `useState`             | Synchronous call, **Async update**             | Calling `setState` is synchronous, but the state update happens on the next render. |
+| `useEffect`            | Asynchronous-like                              | Runs **after render**, not during. Cannot block rendering.                          |
+| `useLayoutEffect`      | Synchronous (after DOM mutation, before paint) | Runs **after DOM updates**, but **before the browser paints**, synchronously.       |
+| `useRef`               | Synchronous                                    | Assigning to `.current` is immediate and doesn't trigger re-render.                 |
+| `useReducer`           | Synchronous call, **Async update**             | Like `useState`. Dispatch is sync, but update takes effect on next render.          |
+| `useCallback`          | Synchronous                                    | Returns a memoized version of a callback immediately.                               |
+| `useMemo`              | Synchronous                                    | Returns a memoized value immediately.                                               |
+| `useContext`           | Synchronous                                    | Reads context value synchronously at render time.                                   |
+| `useTransition`        | Asynchronous scheduling                        | Allows marking updates as non-urgent. Transition happens asynchronously.            |
+| `useDeferredValue`     | Asynchronous update                            | Defers updating value until less urgent rendering time.                             |
+| `useSyncExternalStore` | Synchronous with external sync                 | For subscribing to external data sources with sync guarantees.                      |
+
+---
+
+## 🔍 Key Hooks Explained
+
+### 1. `useState` – Sync call, Async update
+
+```js
+const [count, setCount] = useState(0);
+
+setCount(1);
+console.log(count); // Still logs 0
+```
+
+* `setCount` is **sync**, but `count` updates **on next render**, not immediately.
+
+---
+
+### 2. `useEffect` – Runs **after render**
+
+```js
+useEffect(() => {
+  console.log("Effect runs after render");
+}, []);
+```
+
+* Async-like behavior. It doesn't block rendering.
+* Good for side effects like API calls.
+
+---
+
+### 3. `useLayoutEffect` – Sync after DOM update
+
+```js
+useLayoutEffect(() => {
+  console.log("Runs before paint");
+}, []);
+```
+
+* Runs **after DOM mutations**, but **before paint**.
+* Can block the paint — so use sparingly.
+
+---
+
+### 4. `useRef` – Fully synchronous
+
+```js
+const inputRef = useRef(null);
+
+useEffect(() => {
+  inputRef.current.focus(); // Works immediately
+}, []);
+```
+
+* Accessing or updating `.current` is **sync** and immediate.
+
+---
+
+### 5. `useTransition` – Async updates
+
+```js
+const [isPending, startTransition] = useTransition();
+
+startTransition(() => {
+  // Less urgent update
+  setSomeBigState(...);
+});
+```
+
+* Marks updates as **low-priority**.
+* React defers them to improve UI responsiveness.
+
+---
+
+## ✅ Summary
+
+* **Synchronous Hooks**: `useRef`, `useMemo`, `useCallback`, `useContext`
+* **Asynchronous Behavior**: `useEffect`, `useLayoutEffect`, `useState` (update), `useTransition`, `useDeferredValue`
+
+---
+
+Let me know if you’d like examples or visuals to better understand the differences!
+
