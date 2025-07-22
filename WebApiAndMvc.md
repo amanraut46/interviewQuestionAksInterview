@@ -602,6 +602,205 @@ public class NotificationService {
 
 Would you like a **full working C# project** that demonstrates all SOLID principles in a simple API?
 
+###Write the repeting charactor string fullname repeated number
+```csharp
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+//string fullname repeated number
+using System;
+using System.Collections.Generic;
+
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        string name= "aman raut";
+        Dictionary<char,int> dict= new();
+        foreach(char c in name)
+        {
+            if (dict.ContainsKey(c))
+            {
+                dict[c]+=1;
+            }
+            else
+            {
+              dict[c]=1;
+            }
+        }
+        
+        foreach(KeyValuePair<char, int> item in dict)
+        {
+            if(item.Value>1)
+            {
+                Console.WriteLine(item.Key);
+            }
+        }
+    }
+}
+```
+To remove duplicates **and sort the result in descending order**, you can use **LINQ** like this:
+
+---
+
+### ✅ Full Example: Remove Duplicates & Sort in Descending Order
+
+```csharp
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] arr = new int[] { 4, 5, 2, 8, 5, 2, 9 };
+
+        int[] result = arr
+            .Distinct()            // Remove duplicates
+            .OrderByDescending(x => x)  // Sort in descending order
+            .ToArray();
+
+        Console.WriteLine("Array without duplicates in descending order:");
+        foreach (int num in result)
+        {
+            Console.Write(num + " ");
+        }
+    }
+}
+```
+
+---
+
+### 🧾 Output:
+
+```
+Array without duplicates in descending order:
+9 8 5 4 2
+```
+
+Sure! Here's a **single complete example** of a **custom logging middleware** in ASP.NET Core:
+
+---
+
+## ✅ Example: Logging Middleware (Request + Response Logging)
+
+### 🔹 `MyLoggingMiddleware.cs`
+
+```csharp
+public class MyLoggingMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public MyLoggingMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        // Log request
+        Console.WriteLine($"[Request] {context.Request.Method} {context.Request.Path}");
+
+        await _next(context); // Call the next middleware
+
+        // Log response
+        Console.WriteLine($"[Response] {context.Response.StatusCode}");
+    }
+}
+```
+
+---
+
+### 🔹 `MyLoggingMiddlewareExtensions.cs`
+
+```csharp
+public static class MyLoggingMiddlewareExtensions
+{
+    public static IApplicationBuilder UseMyLoggingMiddleware(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<MyLoggingMiddleware>();
+    }
+}
+```
+
+---
+
+### 🔹 `Program.cs` (ASP.NET Core 6+)
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+// Register custom middleware
+app.UseMyLoggingMiddleware();
+
+app.MapGet("/", () => "Hello from the home route!");
+app.MapGet("/test", () => "Test route works!");
+
+app.Run();
+```
+
+---
+
+### 🧾 Output (Console)
+
+```
+[Request] GET /
+[Response] 200
+
+[Request] GET /test
+[Response] 200
+```
+
+---
+
+Here’s a clear and concise breakdown of the **difference between `FirstOrDefault()` and `SingleOrDefault()`** in C#:
+
+---
+
+### 🔹 `FirstOrDefault()`
+
+* **Returns:** The **first element** in a sequence, or `default(T)` if the sequence is empty.
+* **Throws Exception?** ❌ No — it never throws, even if multiple elements exist.
+* **Use When:** You expect **0 or more elements** and want the **first one** if available.
+
+```csharp
+var list = new List<int> { 1, 2, 3 };
+var result = list.FirstOrDefault(); // returns 1
+```
+
+---
+
+### 🔹 `SingleOrDefault()`
+
+* **Returns:** The **only element** in a sequence, or `default(T)` if the sequence is empty.
+* **Throws Exception?** ✅ Yes — if there is **more than one element**, it throws `InvalidOperationException`.
+* **Use When:** You expect **0 or 1 element only**, and having more is **an error**.
+
+```csharp
+var list = new List<int> { 1 };
+var result = list.SingleOrDefault(); // returns 1
+
+var badList = new List<int> { 1, 2 };
+var result2 = badList.SingleOrDefault(); // ❌ throws exception
+```
+
+---
+
+### ✅ Summary Table
+
+| Feature            | `FirstOrDefault()`      | `SingleOrDefault()`            |
+| ------------------ | ----------------------- | ------------------------------ |
+| Returns            | First item or default   | Single item or default         |
+| Throws if multiple | ❌ No                    | ✅ Yes                          |
+| Safe with empty    | ✅ Yes (returns default) | ✅ Yes (returns default)        |
+| Use case           | Get first of many       | Ensure only one or none exists |
+
+---
+
+
+
+
 
 
 
