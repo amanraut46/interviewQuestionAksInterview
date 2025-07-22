@@ -1,7 +1,3 @@
-Great! Here's a step-by-step guide to set up a **CI/CD pipeline in Azure DevOps** to build and deploy a **.NET API application to Azure Web App (Web API)**.
-
----
-
 ## 1. ✅ CI/CD Pipeline for .NET API to Azure Web App using **Azure DevOps**
 
 ---
@@ -36,45 +32,44 @@ Great! Here's a step-by-step guide to set up a **CI/CD pipeline in Azure DevOps*
 
 ```yaml
 trigger:
-- main  # or your branch name
+  - main # or your branch name
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: "windows-latest"
 
 variables:
-  buildConfiguration: 'Release'
-  outputPath: '$(Build.ArtifactStagingDirectory)/publish'
+  buildConfiguration: "Release"
+  outputPath: "$(Build.ArtifactStagingDirectory)/publish"
 
 steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: "sdk"
+      version: "7.x.x" # Or 6.x depending on your app
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '7.x.x'  # Or 6.x depending on your app
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: "restore"
+      projects: "**/*.csproj"
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: "build"
+      projects: "**/*.csproj"
+      arguments: "--configuration $(buildConfiguration)"
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: "publish"
+      publishWebProjects: true
+      arguments: "--configuration $(buildConfiguration) --output $(outputPath)"
+      zipAfterPublish: true
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--configuration $(buildConfiguration) --output $(outputPath)'
-    zipAfterPublish: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(outputPath)'
-    ArtifactName: 'drop'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: "$(outputPath)"
+      ArtifactName: "drop"
 ```
 
 ---
@@ -84,17 +79,19 @@ steps:
 1. Go to **Pipelines → Releases → New Pipeline**.
 2. **Add an artifact**:
 
-   * Source: `Build`
-   * Select your pipeline and artifact
+   - Source: `Build`
+   - Select your pipeline and artifact
+
 3. **Add a stage** (e.g., Deploy to Azure).
 
-   * Add task: **Azure App Service deploy**
-   * Settings:
+   - Add task: **Azure App Service deploy**
+   - Settings:
 
-     * **Azure subscription**: your service connection
-     * **App type**: Web App
-     * **App name**: Your Azure Web App name
-     * **Package**: `$(System.DefaultWorkingDirectory)/drop/**/*.zip`
+     - **Azure subscription**: your service connection
+     - **App type**: Web App
+     - **App name**: Your Azure Web App name
+     - **Package**: `$(System.DefaultWorkingDirectory)/drop/**/*.zip`
+
 4. Save and **trigger deployment** after successful build.
 
 ---
@@ -111,12 +108,13 @@ steps:
 
 ## 💡 Optional Enhancements
 
-* Add **database migration** with `dotnet ef database update`
-* Use **multiple environments** (Dev, QA, Prod)
-* Integrate with **Key Vault** or **App Configuration**
-* Set **auto approvals** or **manual gates**
+- Add **database migration** with `dotnet ef database update`
+- Use **multiple environments** (Dev, QA, Prod)
+- Integrate with **Key Vault** or **App Configuration**
+- Set **auto approvals** or **manual gates**
 
 ---
+
 Securing an **Azure Function** depends on your use case. Here's a detailed guide on **how to secure Azure Functions** using **Azure AD (most secure), API keys (default), or other options like OAuth tokens or IP restrictions**.
 
 ---
@@ -125,13 +123,13 @@ Securing an **Azure Function** depends on your use case. Here's a detailed guide
 
 ### ✅ 1. **Function Keys (Default)**
 
-* **Level**: Basic security
-* **Use case**: For internal/external apps with shared secrets
-* Each function gets a key (`default`, or custom) passed via `?code=xyz`
+- **Level**: Basic security
+- **Use case**: For internal/external apps with shared secrets
+- Each function gets a key (`default`, or custom) passed via `?code=xyz`
 
 #### How to Use:
 
-* Call your function like:
+- Call your function like:
 
   ```
   https://<function-app>.azurewebsites.net/api/MyFunction?code=YOUR_FUNCTION_KEY
@@ -153,7 +151,8 @@ Protect your function with **Azure Active Directory (OAuth 2.0)** so only authen
 2. Name: `MyFunctionApp`
 3. Redirect URI: (if needed)
 
-   * For a public client: `https://jwt.ms` (for testing)
+   - For a public client: `https://jwt.ms` (for testing)
+
 4. Save `ClientId`, `TenantId`
 
 #### 🔸 Step 2: Enable AAD Auth on the Function App
@@ -161,10 +160,10 @@ Protect your function with **Azure Active Directory (OAuth 2.0)** so only authen
 1. Go to your **Function App** → **Authentication**
 2. Add identity provider:
 
-   * Choose **Microsoft**
-   * Select the app you just registered (`MyFunctionApp`)
-   * Choose `Token Store` or `No storage`
-   * Restrict access to: **Authenticated users only**
+   - Choose **Microsoft**
+   - Select the app you just registered (`MyFunctionApp`)
+   - Choose `Token Store` or `No storage`
+   - Restrict access to: **Authenticated users only**
 
 #### 🔸 Step 3: Protect Your Function with `[Authorize]` (if using .NET)
 
@@ -196,15 +195,15 @@ Authorization: Bearer <access_token>
 
 ### ✅ 3. **Managed Identity (For Internal-to-Azure Access)**
 
-* Use **Azure Managed Identity** when your function needs to access other Azure services securely (e.g., Key Vault, Storage).
-* No secrets or keys involved.
+- Use **Azure Managed Identity** when your function needs to access other Azure services securely (e.g., Key Vault, Storage).
+- No secrets or keys involved.
 
 ---
 
 ### ✅ 4. **IP Restrictions / Network Security**
 
-* Go to your Function App → **Networking** → **Access Restrictions**
-* Block/Allow specific IPs, VNets, or service endpoints.
+- Go to your Function App → **Networking** → **Access Restrictions**
+- Block/Allow specific IPs, VNets, or service endpoints.
 
 ---
 
@@ -223,9 +222,8 @@ Authorization: Bearer <access_token>
 
 Would you like a working **Azure Function example** using Azure AD with:
 
-* Token validation
-* Authorization policies
-* Client app to call it with token?
+- Token validation
+- Authorization policies
+- Client app to call it with token?
 
 Let me know your preferred language/runtime (`.NET`, `Node.js`, etc.) and I’ll generate it!
-
