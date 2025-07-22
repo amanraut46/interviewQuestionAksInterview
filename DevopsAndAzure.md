@@ -227,3 +227,112 @@ Would you like a working **Azure Function example** using Azure AD with:
 - Client app to call it with token?
 
 Let me know your preferred language/runtime (`.NET`, `Node.js`, etc.) and I’ll generate it!
+
+Here's a clear explanation of Refresh Token and JWT Token (JSON Web Token) — their purposes, differences, and how they work in authentication systems:
+
+
+---
+
+🔐 What is a JWT Token?
+
+JWT (JSON Web Token) is a compact, self-contained way to represent claims between two parties, typically used for access tokens in authentication.
+
+✅ Key Properties:
+
+Contains user information and permissions (claims).
+
+Encoded in base64 and signed (not encrypted).
+
+Used to authenticate requests to APIs.
+
+Has an expiration time (e.g., 5 mins to 1 hour).
+
+Cannot be changed by the client (because it's signed).
+
+
+🧱 Structure of a JWT:
+
+1. Header: Algorithm & token type (e.g., HS256, JWT)
+
+
+2. Payload: Claims (user ID, role, etc.)
+
+
+3. Signature: Verifies that the token hasn’t been altered
+
+
+
+Example:
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0IiwibmFtZSI6IkFsaWNlIn0.Df4x... (truncated)
+
+
+---
+
+🔄 What is a Refresh Token?
+
+A Refresh Token is a long-lived credential used to obtain a new access (JWT) token when the current one expires.
+
+✅ Key Properties:
+
+Stored securely (e.g., in HTTP-only cookies or secure storage).
+
+Not sent with every API request.
+
+Used only to request a new JWT token from the authentication server.
+
+Has a longer expiration (days to months).
+
+Can be revoked independently of JWT tokens.
+
+
+
+---
+
+🔁 Typical Workflow
+
+[User Login]
+       ↓
+Auth Server returns:
+ → Access Token (JWT, short-lived)
+ → Refresh Token (long-lived)
+
+[Access API with JWT]
+       ↓
+If JWT expires → Use Refresh Token to get a new JWT
+
+
+---
+
+🧠 Difference at a Glance
+
+Feature	JWT (Access Token)	Refresh Token
+
+Purpose	Access protected APIs	Get new access token
+Lifetime	Short (minutes/hours)	Long (days/weeks)
+Sent with requests	Yes (usually in headers)	No (only to auth server)
+Contains claims?	Yes	Usually no or minimal
+Security Risk	If leaked = API misuse	If leaked = full session hijack
+
+
+
+---
+
+🛡️ Best Practices
+
+Store JWT in memory or local storage (with caution).
+
+Store Refresh Token in HTTP-only secure cookie.
+
+Use HTTPS for all communication.
+
+Rotate refresh tokens after each use (token rotation).
+
+Set expiration and revocation mechanisms.
+
+
+
+---
+
+Let me know if you want a code example (C#, .NET or React) using JWT and Refresh tokens.
+
