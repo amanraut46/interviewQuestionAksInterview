@@ -334,5 +334,51 @@ Set expiration and revocation mechanisms.
 
 ---
 
-Let me know if you want a code example (C#, .NET or React) using JWT and Refresh tokens.
+The difference between **Queue** and **Topic** is primarily based on the messaging pattern they support. Here's a clear comparison, especially relevant in the context of Azure Service Bus or any messaging system:
+
+---
+
+### 🔹 Queue (Point-to-Point Messaging)
+
+| Feature               | Description                                                                            |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| **Messaging Pattern** | **Point-to-Point** (1:1 communication)                                                 |
+| **Sender**            | Sends messages to a **queue**                                                          |
+| **Receiver**          | Only **one** receiver processes each message                                           |
+| **Order**             | Messages are usually processed **in order** (FIFO - First In, First Out)               |
+| **Use Case**          | When **one consumer** should handle a message (e.g., task processing, background jobs) |
+
+🧠 **Example**:
+Imagine a customer support system where each support ticket is handled by one agent. The tickets (messages) go into a queue, and available agents pick them up one by one.
+
+---
+
+### 🔹 Topic (Publish-Subscribe Messaging)
+
+| Feature               | Description                                                                                      |
+| --------------------- | ------------------------------------------------------------------------------------------------ |
+| **Messaging Pattern** | **Publish-Subscribe** (1\:N communication)                                                       |
+| **Sender**            | Publishes messages to a **topic**                                                                |
+| **Receiver**          | **Multiple subscribers** can receive **copies** of the same message                              |
+| **Filtering**         | Can apply **filters** using **subscriptions** to control which messages each subscriber receives |
+| **Use Case**          | When **multiple consumers** need to receive the same message (e.g., event notification system)   |
+
+🧠 **Example**:
+A billing system sends an invoice event. Both the email service (to notify customer) and analytics service (to track invoices) subscribe to the topic and receive the event.
+
+---
+
+### ✅ Summary
+
+| Feature          | Queue             | Topic              |
+| ---------------- | ----------------- | ------------------ |
+| Pattern          | Point-to-Point    | Publish-Subscribe  |
+| Message Receiver | Only one          | Multiple           |
+| Message Copy     | Single            | One per subscriber |
+| Use Case         | Task distribution | Event broadcasting |
+
+---
+
+Let me know if you want a code or Azure example of each.
+
 
