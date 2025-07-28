@@ -1,4 +1,4 @@
-## 1. ✅ CI/CD Pipeline for .NET API to Azure Web App using **Azure DevOps**
+# 1. ✅ CI/CD Pipeline for .NET API to Azure Web App using **Azure DevOps**
 
 ---
 
@@ -119,7 +119,7 @@ Securing an **Azure Function** depends on your use case. Here's a detailed guide
 
 ---
 
-## 🔐 Security Options for Azure Functions
+# 🔐 Security Options for Azure Functions
 
 ### ✅ 1. **Function Keys (Default)**
 
@@ -233,7 +233,7 @@ Here's a clear explanation of Refresh Token and JWT Token (JSON Web Token) — t
 
 ---
 
-🔐 What is a JWT Token?
+# 🔐 What is a JWT Token?
 
 JWT (JSON Web Token) is a compact, self-contained way to represent claims between two parties, typically used for access tokens in authentication.
 
@@ -334,7 +334,7 @@ Set expiration and revocation mechanisms.
 
 ---
 
-The difference between **Queue** and **Topic** is primarily based on the messaging pattern they support. Here's a clear comparison, especially relevant in the context of Azure Service Bus or any messaging system:
+# The difference between **Queue** and **Topic** is primarily based on the messaging pattern they support. Here's a clear comparison, especially relevant in the context of Azure Service Bus or any messaging system:
 
 ---
 
@@ -379,7 +379,7 @@ A billing system sends an invoice event. Both the email service (to notify custo
 
 ---
 
-A **JWT (JSON Web Token)** consists of **three parts**, separated by dots (`.`):
+# A **JWT (JSON Web Token)** consists of **three parts**, separated by dots (`.`):
 
 ```
 <Header>.<Payload>.<Signature>
@@ -461,7 +461,7 @@ MeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 
 ---
 
-### 🔐 What is a PAT Token?
+# 🔐 What is a PAT Token?
 
 **PAT** stands for **Personal Access Token**.
 It's a **security token** used as an alternative to a **username and password** when authenticating with services like:
@@ -531,7 +531,7 @@ Note: The username is blank (`-u :<token>`) because only the PAT is needed.
 * **Revoke** immediately if compromised
 
 ---
-Here's a clear comparison between **On-Premises SQL Server** and **Azure SQL Server (Azure SQL Database)**:
+# Here's a clear comparison between **On-Premises SQL Server** and **Azure SQL Server (Azure SQL Database)**:
 
 ---
 
