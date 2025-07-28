@@ -379,6 +379,160 @@ A billing system sends an invoice event. Both the email service (to notify custo
 
 ---
 
-Let me know if you want a code or Azure example of each.
+A **JWT (JSON Web Token)** consists of **three parts**, separated by dots (`.`):
+
+```
+<Header>.<Payload>.<Signature>
+```
+
+---
+
+### 🔹 1. Header
+
+* **Purpose**: Describes the token type and the signing algorithm.
+* **Common fields**:
+
+  ```json
+  {
+    "alg": "HS256",
+    "typ": "JWT"
+  }
+  ```
+* **Base64Url-encoded**
+
+---
+
+### 🔹 2. Payload
+
+* **Purpose**: Contains the **claims** — the actual data being transmitted.
+* **Types of claims**:
+
+  * **Registered claims** (standard): e.g., `iss` (issuer), `exp` (expiration), `sub` (subject), `aud` (audience)
+  * **Public claims**: Defined by custom applications
+  * **Private claims**: Custom claims agreed upon between parties
+* **Example**:
+
+  ```json
+  {
+    "sub": "1234567890",
+    "name": "John Doe",
+    "admin": true,
+    "exp": 1718880000
+  }
+  ```
+
+---
+
+### 🔹 3. Signature
+
+* **Purpose**: Verifies the token wasn’t tampered with.
+
+* **Created using**:
+
+  ```
+  HMACSHA256(
+    base64UrlEncode(header) + "." + base64UrlEncode(payload),
+    secret
+  )
+  ```
+
+* Only the **issuer** with the secret key (or private key if using RSA) can sign it, and the **receiver** can verify the signature to ensure authenticity.
+
+---
+
+### 🔐 Example JWT
+
+```text
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.  <-- Header
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpv  <-- Payload
+aG4gRG9lIiwiYWRtaW4iOnRydWV9.SflKxwRJS  <-- Signature
+MeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+---
+
+### 📌 Summary Table
+
+| Part      | Description                 | Encoded As      |
+| --------- | --------------------------- | --------------- |
+| Header    | Token type & algorithm      | Base64Url       |
+| Payload   | User info & claims          | Base64Url       |
+| Signature | Verifies integrity & issuer | HMAC / RSA hash |
+
+---
+
+### 🔐 What is a PAT Token?
+
+**PAT** stands for **Personal Access Token**.
+It's a **security token** used as an alternative to a **username and password** when authenticating with services like:
+
+* **Azure DevOps**
+* **GitHub**
+* **GitLab**
+* **Jenkins**
+* **Bitbucket**
+
+---
+
+### 🔹 Why Use a PAT?
+
+* To **authenticate** securely without exposing your real credentials
+* To allow **automated tools or scripts** to access APIs
+* To **limit scope** of access (read-only, write access, etc.)
+* To **control expiry** and rotate credentials
+
+---
+
+### 🔐 Example Use Case (Azure DevOps):
+
+If you're using `git` to push code to Azure DevOps:
+
+```bash
+git push https://dev.azure.com/your-org/project/_git/repo
+```
+
+When prompted for a password, instead of using your Microsoft password, you use a **PAT token**.
+
+---
+
+### 🔧 How to Generate a PAT (Azure DevOps):
+
+1. Go to **[https://dev.azure.com/](https://dev.azure.com/)**
+2. Click on your user profile (top-right) → **Security**
+3. Click **+ New Token**
+4. Select:
+
+   * Name
+   * Organization
+   * Expiry date
+   * Scopes (e.g., Code → Read & Write)
+5. Click **Create**
+
+Copy the token and save it. You won’t be able to view it again.
+
+---
+
+### 🔐 Example Authentication (Using PAT in a Script):
+
+```bash
+curl -u :<PAT_TOKEN> https://dev.azure.com/your-org/_apis/projects?api-version=6.0
+```
+
+Note: The username is blank (`-u :<token>`) because only the PAT is needed.
+
+---
+
+### 🛑 Security Best Practices
+
+* Treat PATs like **passwords**
+* Never check PATs into source control
+* Use **least privilege** scopes
+* Set **expiration dates**
+* **Revoke** immediately if compromised
+
+---
+
+
+
 
 
