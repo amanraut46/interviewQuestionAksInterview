@@ -531,6 +531,62 @@ Note: The username is blank (`-u :<token>`) because only the PAT is needed.
 * **Revoke** immediately if compromised
 
 ---
+Here's a clear comparison between **On-Premises SQL Server** and **Azure SQL Server (Azure SQL Database)**:
+
+---
+
+### 🧩 Core Difference:
+
+| Feature                 | **On-Premise SQL Server**                                | **Azure SQL Server (PaaS)**                                              |
+| ----------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Hosting**             | Installed & maintained **locally** or on your own VM     | Fully managed by **Microsoft** on Azure                                  |
+| **Management**          | You manage everything: OS, hardware, patches, backups    | Microsoft manages most things: scaling, patching, backups                |
+| **Deployment Type**     | Infrastructure-as-a-Service (IaaS) or physical server    | Platform-as-a-Service (PaaS)                                             |
+| **High Availability**   | You must set up clustering, AlwaysOn, backups, etc.      | Built-in high availability and geo-replication options                   |
+| **Scaling**             | Manual scaling (hardware upgrade or reconfiguration)     | Easy scaling via service tiers or serverless options                     |
+| **Licensing**           | Requires SQL Server license (CAL/core-based)             | Pay-as-you-go (license included in pricing)                              |
+| **Security**            | On you – configure firewalls, access control, encryption | Built-in security, encryption, firewall, and threat detection            |
+| **Maintenance**         | Full control, but **you must handle everything**         | Minimal maintenance – **Microsoft auto-handles patches, updates**        |
+| **Performance Tuning**  | Full control; you can use all indexing, tuning, etc.     | Some limitations, but intelligent tuning features available              |
+| **Backup/Restore**      | Manual or scheduled backups                              | Automated backups, point-in-time restore                                 |
+| **Access**              | LAN or VPN-based                                         | Internet-based, secured with firewall & identity controls                |
+| **Custom SQL Features** | Full support (Agent Jobs, SSIS, CLR, etc.)               | Some features like SQL Agent, SSIS, CLR are **limited or not supported** |
+
+---
+
+### 🚀 Use Cases
+
+| Use Case                                             | Recommended Platform   |
+| ---------------------------------------------------- | ---------------------- |
+| Heavy customization, integration with local systems  | On-Premise SQL Server  |
+| Cloud-native apps, minimal maintenance, auto-scaling | Azure SQL Database     |
+| Lift-and-shift existing SQL Server with full control | Azure SQL on VM (IaaS) |
+
+---
+
+### 🏗️ Types of SQL in Azure
+
+| Azure Option                   | Description                                           |
+| ------------------------------ | ----------------------------------------------------- |
+| **Azure SQL Database**         | Fully managed, single DB or elastic pool              |
+| **Azure SQL Managed Instance** | Almost full SQL Server feature parity, but still PaaS |
+| **SQL Server on Azure VM**     | Full control, similar to on-prem (IaaS)               |
+
+---
+
+### ✅ Summary
+
+| Area              | On-Premise         | Azure SQL                  |
+| ----------------- | ------------------ | -------------------------- |
+| Maintenance       | Manual             | Automated                  |
+| Cost Model        | CapEx (upfront)    | OpEx (pay-as-you-go)       |
+| Scalability       | Hardware-dependent | Easy to scale              |
+| High Availability | Manual setup       | Built-in                   |
+| Ideal for         | Legacy systems     | Cloud apps, SaaS platforms |
+
+---
+
+Let me know if you want a comparison between **Azure SQL Database vs Azure SQL Managed Instance** as well!
 
 
 
