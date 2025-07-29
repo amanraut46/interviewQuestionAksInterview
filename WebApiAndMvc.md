@@ -1243,6 +1243,112 @@ Let me know if you'd like:
 * C# code to demo both side-by-side
 * Interview scenarios or questions on async/await vs threads
 
+Great question! Let's break it down clearly:
+
+---
+
+## ❓ **Interview Question:**
+
+# **What is a deadlock and when does it occur?**
+
+---
+
+## ✅ **Definition:**
+
+A **deadlock** is a situation where **two or more threads/processes are waiting for each other to release resources**, and **none of them ever proceed**.
+
+It’s like two people holding keys to each other’s lockers — and both are waiting for the other to open theirs first.
+
+---
+
+## 🧠 **When Does Deadlock Occur?**
+
+Deadlock typically occurs when **four conditions** are met **simultaneously**:
+
+| Condition            | Description                                                                       |
+| -------------------- | --------------------------------------------------------------------------------- |
+| **Mutual Exclusion** | At least one resource is held in a non-shareable mode.                            |
+| **Hold and Wait**    | A process/thread holds one resource and waits for another.                        |
+| **No Preemption**    | Resources cannot be forcibly taken from a process.                                |
+| **Circular Wait**    | A circular chain of threads exists, each waiting for a resource held by the next. |
+
+---
+
+## 🔧 **Example in C# (with locks):**
+
+```csharp
+object lock1 = new object();
+object lock2 = new object();
+
+Thread thread1 = new Thread(() =>
+{
+    lock (lock1)
+    {
+        Thread.Sleep(100); // Simulate work
+        lock (lock2)
+        {
+            Console.WriteLine("Thread 1 acquired both locks");
+        }
+    }
+});
+
+Thread thread2 = new Thread(() =>
+{
+    lock (lock2)
+    {
+        Thread.Sleep(100); // Simulate work
+        lock (lock1)
+        {
+            Console.WriteLine("Thread 2 acquired both locks");
+        }
+    }
+});
+
+thread1.Start();
+thread2.Start();
+```
+
+### ❌ What happens:
+
+* Thread 1 locks `lock1` and waits for `lock2`
+* Thread 2 locks `lock2` and waits for `lock1`
+* **Deadlock!** Neither can proceed.
+
+---
+
+## 🔍 **How to Prevent Deadlocks**
+
+1. ✅ **Always lock resources in the same order**
+2. ❌ **Avoid holding multiple locks at once**
+3. ✅ **Use timeouts when acquiring locks**
+4. ✅ **Use lock-free or concurrent collections when possible**
+5. ✅ **Detect circular waits if possible**
+
+---
+
+## 📌 **Real-World Deadlock Example**
+
+In a **database (like SQL Server)**:
+
+* Two transactions each lock a different row
+* Then each tries to update the row locked by the other
+* Deadlock occurs → one transaction is rolled back automatically
+
+---
+
+### ✅ Summary:
+
+| Term            | Meaning                                                         |
+| --------------- | --------------------------------------------------------------- |
+| Deadlock        | Two or more threads/processes **wait forever** on each other    |
+| When it happens | Holding resources **while waiting for others**                  |
+| Prevention      | Lock ordering, timeouts, minimal locking, concurrent structures |
+
+---
+
+Let me know if you’d like a demo or code to **detect and prevent** deadlocks.
+
+
 
 
 
