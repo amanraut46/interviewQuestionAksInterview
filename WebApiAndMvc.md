@@ -945,9 +945,97 @@ FROM Employees;
 * Use **`GROUP BY`** when you want **summary data**.
 * Use **`PARTITION BY`** when you want **row-level calculations grouped logically**.
 
+# **How do you perform a `LEFT JOIN` in LINQ, and what is its purpose?**
+
 ---
 
-Let me know if you want real table data examples or differences between other SQL clauses like `WHERE` vs `HAVING`, `JOIN` vs `UNION`, etc.
+### ✅ **Answer:**
+
+A **LEFT JOIN** in LINQ is used when you want to return **all records from the left collection**, even if there are **no matching records in the right collection**. It is implemented using **`join ... into`**, followed by **`DefaultIfEmpty()`**.
+
+---
+
+### 🧾 **Syntax (Method Syntax):**
+
+```csharp
+var result = from a in collectionA
+             join b in collectionB on a.Id equals b.AId into gj
+             from subB in gj.DefaultIfEmpty()
+             select new
+             {
+                 AName = a.Name,
+                 BName = subB != null ? subB.Name : "No Match"
+             };
+```
+
+---
+
+### 🛠️ **Example**
+
+#### 📄 Input:
+
+```csharp
+public class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+public class Enrollment
+{
+    public int StudentId { get; set; }
+    public string Course { get; set; }
+}
+
+var students = new List<Student>
+{
+    new Student { Id = 1, Name = "Alice" },
+    new Student { Id = 2, Name = "Bob" },
+    new Student { Id = 3, Name = "Charlie" }
+};
+
+var enrollments = new List<Enrollment>
+{
+    new Enrollment { StudentId = 1, Course = "Math" },
+    new Enrollment { StudentId = 1, Course = "Science" },
+    new Enrollment { StudentId = 2, Course = "History" }
+};
+```
+
+#### ⚙️ LINQ LEFT JOIN:
+
+```csharp
+var query = from s in students
+            join e in enrollments on s.Id equals e.StudentId into studentEnrollments
+            from se in studentEnrollments.DefaultIfEmpty()
+            select new
+            {
+                StudentName = s.Name,
+                Course = se != null ? se.Course : "Not Enrolled"
+            };
+```
+
+#### 🖨️ Output:
+
+```
+Alice    - Math  
+Alice    - Science  
+Bob      - History  
+Charlie  - Not Enrolled
+```
+
+---
+
+### 🧠 **Why use `LEFT JOIN` in LINQ?**
+
+* To show unmatched items (e.g., students without enrollments).
+* To replicate SQL-style reporting and summary.
+* To avoid missing "left-side" data due to inner joins.
+
+---
+
+Let me know if you'd like the **method syntax version** or an example using **Entity Framework LINQ**.
+
 
 
 
