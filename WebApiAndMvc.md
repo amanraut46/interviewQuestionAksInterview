@@ -1,7 +1,4 @@
- **1..Difference between Middleware and Action Filters** in ASP.NET (Core or MVC) lies in their **purpose, scope, and where they fit in the request pipeline**.
-
----
-
+# **1..Difference between Middleware and Action Filters** in ASP.NET (Core or MVC) lies in their **purpose, scope, and where they fit in the request pipeline**.
 ## 🔹 1. **Middleware**
 
 ### ✅ Definition:
@@ -105,7 +102,7 @@ public class LogActionFilter : IActionFilter
 
 ---
 
-**2.ASP.NET Core, dependency injection (DI) is built-in, and the three main service lifetimes you can register are:**
+# **2.ASP.NET Core, dependency injection (DI) is built-in, and the three main service lifetimes you can register are:**
 
 ---
 
@@ -248,7 +245,7 @@ Absolutely! Here's a breakdown of **use cases** for each service lifetime in **A
 
 ---
 
-**"How security API"**?
+#3 **"How security API"**?
 
 To help you better, here are a few interpretations of your question:
 
@@ -319,7 +316,7 @@ And use `[Authorize]` on controllers.
 
 ---
 
-**How to optimize an API**:
+#4 **How to optimize an API**:
 
 ---
 
@@ -450,7 +447,7 @@ If you tell me:
 
 ---
 
-## 🔠 What is SOLID?
+#5 🔠 What is SOLID?
 
 | Letter | Principle Name                            | Description                                                                               |
 | ------ | ----------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -602,7 +599,7 @@ public class NotificationService {
 
 Would you like a **full working C# project** that demonstrates all SOLID principles in a simple API?
 
-###Write the repeting charactor string fullname repeated number
+#6 Write the repeting charactor string fullname repeated number
 ```csharp
 // Online C# Editor for free
 // Write, Edit and Run your C# code using C# Online Compiler
@@ -643,7 +640,7 @@ To remove duplicates **and sort the result in descending order**, you can use **
 
 ---
 
-### ✅ Full Example: Remove Duplicates & Sort in Descending Order
+#7 ✅ Full Example: Remove Duplicates & Sort in Descending Order
 
 ```csharp
 using System;
@@ -682,7 +679,7 @@ Sure! Here's a **single complete example** of a **custom logging middleware** in
 
 ---
 
-## ✅ Example: Logging Middleware (Request + Response Logging)
+#8 ✅ Example: Logging Middleware (Request + Response Logging)
 
 ### 🔹 `MyLoggingMiddleware.cs`
 
@@ -754,7 +751,7 @@ app.Run();
 
 ---
 
-Here’s a clear and concise breakdown of the **difference between `FirstOrDefault()` and `SingleOrDefault()`** in C#:
+#10 **difference between `FirstOrDefault()` and `SingleOrDefault()`** in C#:
 
 ---
 
@@ -802,7 +799,7 @@ Sure! Here's the complete format with the **interview-style question**, **answer
 
 ---
 
-# **What is the difference between a `private` class and a `sealed` class in C#?**
+#11 **What is the difference between a `private` class and a `sealed` class in C#?**
 
 ---
 
