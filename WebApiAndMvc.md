@@ -798,6 +798,157 @@ var result2 = badList.SingleOrDefault(); // ❌ throws exception
 
 ---
 
+Sure! Here's the complete format with the **interview-style question**, **answer**, **code examples**, and **comparison table**:
+
+---
+
+# **What is the difference between a `private` class and a `sealed` class in C#?**
+
+---
+
+### ✅ **Answer:**
+
+In C#, `private` and `sealed` are two different keywords used for different purposes:
+
+* **`private`** is an **access modifier** that controls **visibility**.
+* **`sealed`** is an **inheritance modifier** that controls **inheritability**.
+
+---
+
+### 🔍 **Explanation with Examples**
+
+#### 🔒 `private class`
+
+* A `private` class **cannot be accessed outside the containing class**.
+* It must be a **nested class** (you can't declare a private top-level class).
+* Useful for **encapsulation**.
+
+```csharp
+public class OuterClass
+{
+    private class InnerClass
+    {
+        public void Display() => Console.WriteLine("Inside InnerClass");
+    }
+
+    public void AccessInner()
+    {
+        InnerClass obj = new InnerClass(); // ✅ OK: accessible inside OuterClass
+        obj.Display();
+    }
+}
+
+// ❌ This will NOT compile:
+// OuterClass.InnerClass obj = new OuterClass.InnerClass();
+```
+
+---
+
+#### 🔐 `sealed class`
+
+* A `sealed` class **cannot be inherited**.
+* Used when you want to **prevent other classes from deriving** from it.
+* Commonly used with classes like `System.String`, `System.Math`, etc.
+
+```csharp
+public sealed class SealedClass
+{
+    public void Display() => Console.WriteLine("This is a sealed class");
+}
+
+// ❌ This will cause a compile-time error:
+public class DerivedClass : SealedClass
+{
+    // Error: cannot derive from sealed class
+}
+```
+
+---
+
+### 📊 **Comparison Table**
+
+| Feature           | `private class`                     | `sealed class`                                 |
+| ----------------- | ----------------------------------- | ---------------------------------------------- |
+| Keyword type      | Access modifier                     | Inheritance modifier                           |
+| Can be top-level? | ❌ No (must be nested)               | ✅ Yes                                          |
+| Accessibility     | Only inside the containing class    | Based on its access modifier (public/internal) |
+| Can be inherited? | ✅ Yes, if accessible                | ❌ No                                           |
+| Used for          | Hiding inner implementation details | Preventing inheritance                         |
+
+---
+
+# **What is the difference between `GROUP BY` and `PARTITION BY` in SQL?**
+
+---
+
+### ✅ **Answer:**
+
+Both `GROUP BY` and `PARTITION BY` are used to **organize data**, but they serve different purposes:
+
+* **`GROUP BY`** is used to **aggregate rows into groups**, reducing the number of rows.
+* **`PARTITION BY`** is used with **window functions** to divide the result set into partitions **without reducing rows**.
+
+---
+
+### 🔍 **Detailed Explanation**
+
+#### 🔸 `GROUP BY`
+
+* **Groups** rows with the same values in specified columns.
+* Often used with aggregate functions like `SUM()`, `COUNT()`, `AVG()`, etc.
+* **Reduces** the number of rows in the result.
+
+**Example:**
+
+```sql
+SELECT Department, COUNT(*) AS EmployeeCount
+FROM Employees
+GROUP BY Department;
+```
+
+🧠 **Result**: One row per department with the number of employees.
+
+---
+
+#### 🔹 `PARTITION BY`
+
+* Used with **window functions** like `ROW_NUMBER()`, `RANK()`, `SUM() OVER(...)`, etc.
+* It **divides** the result set into partitions (like mini-groups), but **does not reduce** the number of rows.
+* Each row retains its identity while calculations are performed over its partition.
+
+**Example:**
+
+```sql
+SELECT Name, Department,
+       RANK() OVER (PARTITION BY Department ORDER BY Salary DESC) AS DeptRank
+FROM Employees;
+```
+
+🧠 **Result**: Each employee is listed, with their rank **within their department**.
+
+---
+
+### 📊 **Comparison Table**
+
+| Feature         | `GROUP BY`                             | `PARTITION BY`                                       |
+| --------------- | -------------------------------------- | ---------------------------------------------------- |
+| Purpose         | Aggregate rows into groups             | Divide data into partitions for window functions     |
+| Reduces rows?   | ✅ Yes                                  | ❌ No                                                 |
+| Used with       | Aggregate functions (SUM, COUNT, etc.) | Window functions (RANK, ROW\_NUMBER, SUM OVER, etc.) |
+| Output rows     | One row per group                      | Same number of rows as input                         |
+| Clause location | In the main `SELECT` query             | Inside `OVER()` clause                               |
+
+---
+
+### 📝 Summary:
+
+* Use **`GROUP BY`** when you want **summary data**.
+* Use **`PARTITION BY`** when you want **row-level calculations grouped logically**.
+
+---
+
+Let me know if you want real table data examples or differences between other SQL clauses like `WHERE` vs `HAVING`, `JOIN` vs `UNION`, etc.
+
 
 
 
