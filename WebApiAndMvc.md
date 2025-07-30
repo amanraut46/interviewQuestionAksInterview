@@ -1,18 +1,19 @@
-# **1..Difference between Middleware and Action Filters** in ASP.NET (Core or MVC) lies in their **purpose, scope, and where they fit in the request pipeline**.
-## 🔹 1. **Middleware**
+# 1.Difference between Middleware and Action Filters in ASP.NET (Core or MVC) lies in their purpose, scope, and where they fit in the request pipeline
 
-### ✅ Definition:
+## 🔹 1. Middleware
+
+### ✅ Definition
 
 Middleware is **global logic** that runs early in the request pipeline—before routing, MVC, and filters. It's used to process or modify HTTP requests/responses.
 
-### ✅ Characteristics:
+### ✅ Characteristics
 
 * Runs **before and after** the routing to controller/actions.
 * Works on **all requests** (not just MVC).
 * Applied in `Startup.cs` (`Program.cs` in .NET 6+).
 * Can short-circuit the pipeline (e.g., return a response early).
 
-### ✅ Common Use Cases:
+### ✅ Common Use Cases
 
 * Authentication
 * Logging
@@ -20,7 +21,7 @@ Middleware is **global logic** that runs early in the request pipeline—before 
 * Exception handling
 * Custom headers
 
-### ✅ Example:
+### ✅ Example
 
 ```csharp
 public class CustomMiddleware
@@ -45,32 +46,32 @@ public class CustomMiddleware
 
 ## 🔹 2. **Action Filter**
 
-### ✅ Definition:
+### ✅ Definition
 
 Action Filters are part of the **MVC pipeline** and are used to execute logic **before or after** a controller action executes.
 
-### ✅ Characteristics:
+### ✅ Characteristics
 
 * Runs **within the MVC pipeline** (after routing).
 * Can be applied **globally, to a controller, or to an action**.
 * Only works on **MVC or Web API requests**.
 * More granular than middleware.
 
-### ✅ Types of Filters:
+### ✅ Types of Filters
 
 * `ActionFilter`
 * `AuthorizationFilter`
 * `ExceptionFilter`
 * `ResultFilter`
 
-### ✅ Common Use Cases:
+### ✅ Common Use Cases
 
 * Logging input/output of actions
 * Validation
 * Auditing
 * Modifying action parameters or result
 
-### ✅ Example:
+### ✅ Example
 
 ```csharp
 public class LogActionFilter : IActionFilter
@@ -158,7 +159,7 @@ services.AddTransient<IMyService, MyService>();
 
 ---
 
-## 🧠 Example Scenario:
+## 🧠 Example Scenario
 
 Suppose you inject the same service into both a controller and a repository:
 
@@ -168,7 +169,7 @@ Suppose you inject the same service into both a controller and a repository:
 
 ---
 
-## ⚠️ Important Notes:
+## ⚠️ Important Notes
 
 * Never use **`AddSingleton` for services that depend on `Scoped` services** (like `DbContext`) — this can cause serious threading issues.
 * Use **`AddScoped` for Entity Framework DbContext** or anything request-bound.
@@ -181,13 +182,13 @@ Absolutely! Here's a breakdown of **use cases** for each service lifetime in **A
 
 ## 🔹 1. `AddSingleton` – ✅ **Use Cases**
 
-### 🟢 Characteristics:
+### 🟢 Characteristics
 
 * Created **once** and reused for the **entire app lifetime**.
 * **Shared across all requests** and users.
 * Best for **thread-safe** and **stateless** objects.
 
-### ✅ Use Cases:
+### ✅ Use Cases
 
 | Use Case                  | Why                                                |
 | ------------------------- | -------------------------------------------------- |
@@ -245,7 +246,7 @@ Absolutely! Here's a breakdown of **use cases** for each service lifetime in **A
 
 ---
 
-#3 **"How security API"**?
+# 3 How security API?
 
 To help you better, here are a few interpretations of your question:
 
@@ -447,7 +448,7 @@ If you tell me:
 
 ---
 
-#5 🔠 What is SOLID?
+# 5  What is SOLID?
 
 | Letter | Principle Name                            | Description                                                                               |
 | ------ | ----------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -599,7 +600,7 @@ public class NotificationService {
 
 Would you like a **full working C# project** that demonstrates all SOLID principles in a simple API?
 
-#6 Write the repeting charactor string fullname repeated number
+# 6 Write the repeting charactor string fullname repeated number
 ```csharp
 // Online C# Editor for free
 // Write, Edit and Run your C# code using C# Online Compiler
@@ -640,7 +641,7 @@ To remove duplicates **and sort the result in descending order**, you can use **
 
 ---
 
-#7 ✅ Full Example: Remove Duplicates & Sort in Descending Order
+# 7  Full Example: Remove Duplicates & Sort in Descending Order
 
 ```csharp
 using System;
@@ -679,7 +680,7 @@ Sure! Here's a **single complete example** of a **custom logging middleware** in
 
 ---
 
-#8 ✅ Example: Logging Middleware (Request + Response Logging)
+# 8 Example: Logging Middleware (Request + Response Logging)
 
 ### 🔹 `MyLoggingMiddleware.cs`
 
@@ -751,7 +752,7 @@ app.Run();
 
 ---
 
-#10 **difference between `FirstOrDefault()` and `SingleOrDefault()`** in C#:
+# 10 difference between `FirstOrDefault()` and `SingleOrDefault()` in C#:
 
 ---
 
@@ -799,7 +800,7 @@ Sure! Here's the complete format with the **interview-style question**, **answer
 
 ---
 
-#11 **What is the difference between a `private` class and a `sealed` class in C#?**
+# 11 **What is the difference between a `private` class and a `sealed` class in C#?**
 
 ---
 
@@ -874,10 +875,7 @@ public class DerivedClass : SealedClass
 
 ---
 
-# **What is the difference between `GROUP BY` and `PARTITION BY` in SQL?**
-
----
-
+# 12 **What is the difference between `GROUP BY` and `PARTITION BY` in SQL
 ### ✅ **Answer:**
 
 Both `GROUP BY` and `PARTITION BY` are used to **organize data**, but they serve different purposes:
@@ -942,9 +940,7 @@ FROM Employees;
 * Use **`GROUP BY`** when you want **summary data**.
 * Use **`PARTITION BY`** when you want **row-level calculations grouped logically**.
 
-# **How do you perform a `LEFT JOIN` in LINQ, and what is its purpose?**
-
----
+# 13 **How do you perform a `LEFT JOIN` in LINQ, and what is its purpose?**
 
 ### ✅ **Answer:**
 
@@ -1028,12 +1024,8 @@ Charlie  - Not Enrolled
 * To show unmatched items (e.g., students without enrollments).
 * To replicate SQL-style reporting and summary.
 * To avoid missing "left-side" data due to inner joins.
-
-
-
-# **What is the lifecycle of a .NET application?**
-
 ---
+# 14 **What is the lifecycle of a .NET application?**
 
 ### ✅ **Answer:**
 
@@ -1151,9 +1143,8 @@ If you're talking about an **ASP.NET or ASP.NET Core** web app, the lifecycle al
 Great question! Let's break down the difference between **Concurrency** and **Parallelism**, especially in the context of C# and real-world applications.
 
 ---
-# **What is the difference between concurrency and parallelism?**
+# 14 **What is the difference between concurrency and parallelism?**
 
----
 
 ### ✅ **Answer:**
 
@@ -1246,9 +1237,8 @@ Great question! Let's break it down clearly:
 
 ## ❓ **Interview Question:**
 
-# **What is a deadlock and when does it occur?**
+# 15 **What is a deadlock and when does it occur?**
 
----
 
 ## ✅ **Definition:**
 
@@ -1342,17 +1332,36 @@ In a **database (like SQL Server)**:
 | Prevention      | Lock ordering, timeouts, minimal locking, concurrent structures |
 
 ---
+Sure! Here's the full **interview-style question with the LINQ query answer**:
 
-Let me know if you’d like a demo or code to **detect and prevent** deadlocks.
+---
 
+# 16 **Q: How would you find the 4th largest `SellValue` from a collection using LINQ query syntax in C#?**
 
+---
 
+### 🔸 **Answer:**
 
+```csharp
+var fourthLargest = (
+    from s in sales
+    orderby s.SellValue descending
+    select s.SellValue
+)
+.Distinct()
+.Skip(3)
+.FirstOrDefault();
 
+Console.WriteLine($"4th largest sell value is: {fourthLargest}");
+```
 
+---
 
+### ✅ **Explanation:**
 
+* `orderby s.SellValue descending`: Sorts SellValues in descending order.
+* `Distinct()`: Ensures uniqueness (optional, depending on requirement).
+* `Skip(3)`: Skips the top 3 values.
+* `FirstOrDefault()`: Returns the 4th largest (or 0/default if not found).
 
-
-
-
+---
