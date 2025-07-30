@@ -114,8 +114,7 @@ steps:
 - Set **auto approvals** or **manual gates**
 
 ---
-
-Securing an **Azure Function** depends on your use case. Here's a detailed guide on **how to secure Azure Functions** using **Azure AD (most secure), API keys (default), or other options like OAuth tokens or IP restrictions**.
+# 2 **how to secure Azure Functions** using **Azure AD (most secure), API keys (default), or other options like OAuth tokens or IP restrictions**.
 
 ---
 

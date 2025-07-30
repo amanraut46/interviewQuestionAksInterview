@@ -1336,7 +1336,7 @@ Sure! Here's the full **interview-style question with the LINQ query answer**:
 
 ---
 
-# 16 **Q: How would you find the 4th largest `SellValue` from a collection using LINQ query syntax in C#?**
+# 16 How would you find the 4th largest `SellValue` from a collection using LINQ query syntax in C#?**
 
 ---
 
@@ -1365,3 +1365,91 @@ Console.WriteLine($"4th largest sell value is: {fourthLargest}");
 * `FirstOrDefault()`: Returns the 4th largest (or 0/default if not found).
 
 ---
+
+# 17 How do you sort an array in ascending and descending order in C#?
+
+Great! Here's a complete C# program that sorts an array in both **ascending** and **descending** order using the **Bubble Sort algorithm** (without using LINQ).
+
+---
+
+### ✅ **Interview Question:**
+
+**Q: Write a C# program to sort an array in ascending and descending order using the Bubble Sort algorithm.**
+
+---
+
+### 🔸 **C# Program Using Bubble Sort:**
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = { 5, 3, 8, 1, 9, 2 };
+
+        Console.WriteLine("Original Array: " + string.Join(", ", numbers));
+
+        // Sort Ascending
+        int[] ascending = (int[])numbers.Clone();
+        BubbleSortAscending(ascending);
+        Console.WriteLine("Ascending Order: " + string.Join(", ", ascending));
+
+        // Sort Descending
+        int[] descending = (int[])numbers.Clone();
+        BubbleSortDescending(descending);
+        Console.WriteLine("Descending Order: " + string.Join(", ", descending));
+    }
+
+    static void BubbleSortAscending(int[] arr)
+    {
+        int n = arr.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (arr[j] > arr[j + 1])
+                {
+                    // swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    static void BubbleSortDescending(int[] arr)
+    {
+        int n = arr.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (arr[j] < arr[j + 1])
+                {
+                    // swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+### 🟦 **Output:**
+
+```
+Original Array: 5, 3, 8, 1, 9, 2
+Ascending Order: 1, 2, 3, 5, 8, 9
+Descending Order: 9, 8, 5, 3, 2, 1
+```
+
+---
+
+Let me know if you'd like the same logic applied to a **list of objects** (e.g., sort students by marks using bubble sort).
