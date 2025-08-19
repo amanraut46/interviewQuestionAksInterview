@@ -1551,5 +1551,119 @@ Perfect 👌, let’s make this **interview-friendly**.
 * This reduces scalability in web applications where threads are a limited resource.
 * `await` is more **efficient** as it frees the thread while waiting.
 
+---
+
+#24 🔹 What is a Tuple in C#?
+
+* A **Tuple** is a **data structure** that can hold a fixed number of items of **different types**.
+* It was introduced in **.NET Framework 4.0**.
+* Think of it like a lightweight object to group multiple values together **without creating a separate class**.
+
+Example:
+
+```csharp
+var tuple = Tuple.Create(1, "Aman", true);
+Console.WriteLine(tuple.Item1); // 1
+Console.WriteLine(tuple.Item2); // Aman
+Console.WriteLine(tuple.Item3); // True
+```
+
+---
+
+## 🔹 ValueTuple (C# 7.0 and above)
+
+* In C# 7.0, **ValueTuple** was introduced.
+* It’s more efficient than `Tuple<>` (stored as **structs** instead of classes).
+* Allows **named fields** for better readability.
+
+Example:
+
+```csharp
+(string Name, int Age, bool IsActive) person = ("Aman", 27, true);
+Console.WriteLine(person.Name);  // Aman
+Console.WriteLine(person.Age);   // 27
+Console.WriteLine(person.IsActive); // True
+```
+
+You can also use **tuple deconstruction**:
+
+```csharp
+var (name, age, isActive) = ("Aman", 27, true);
+Console.WriteLine(name);  // Aman
+```
+
+---
+
+## 🔹 Use of Tuples
+
+1. **Return multiple values** from a method without creating a class.
+
+   ```csharp
+   (int Sum, int Product) Calculate(int a, int b)
+   {
+       return (a + b, a * b);
+   }
+
+   var result = Calculate(5, 10);
+   Console.WriteLine(result.Sum);     // 15
+   Console.WriteLine(result.Product); // 50
+   ```
+
+2. **Temporary grouping of data** (like key-value pairs but with more than 2 values).
+
+3. **Quick prototyping** when you don’t want to create separate DTOs or classes.
+
+4. **Pattern matching & deconstruction** for cleaner code.
+
+---
+
+## 🔹 Interview Questions on Tuples
+
+# 25. **What is a Tuple in C#?**
+
+👉 Answer:
+A Tuple is a data structure that can hold multiple values of different types in a single object.
+
+---
+
+# 26. **What is the difference between `Tuple` and `ValueTuple`?**
+
+👉 Answer:
+
+* `Tuple` is a **class** (reference type), introduced in .NET 4.0.
+* `ValueTuple` is a **struct** (value type), introduced in C# 7.0.
+* `ValueTuple` supports **naming fields** and **deconstruction**, `Tuple` does not.
+* `ValueTuple` is more **efficient** because it avoids heap allocations.
+
+---
+
+# 27. **When should you use a Tuple?**
+
+👉 Answer:
+
+* When you need to return multiple values from a method.
+* When creating a new class just to hold temporary values would be overkill.
+
+---
+
+# 28. **What are the limitations of Tuples?**
+
+👉 Answer:
+
+* Tuples are not very descriptive → `Item1`, `Item2` (unless using `ValueTuple`).
+* Harder to understand in complex scenarios.
+* Better to use **classes/records** when data has business meaning.
+
+---
+
+# 29. **Can tuples be used as dictionary keys?**
+
+👉 Answer:
+
+* Yes, since `Tuple` implements equality checks.
+* `ValueTuple` also implements structural equality, so it can be used as dictionary keys.
+
+
+
 
 
