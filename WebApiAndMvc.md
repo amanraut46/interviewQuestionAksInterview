@@ -1483,3 +1483,73 @@ Here’s a quick breakdown 👇
  • Use IQueryable for database queries.
  • Use List for general-purpose dynamic collections.
  • Use IList when you want flexibility or abstraction.
+
+Perfect 👌, let’s make this **interview-friendly**.
+
+---
+
+## 🔹 Possible Interview Questions on `Task.Result` vs `await`
+
+# 19. **What is the difference between `Task.Result` and `await` in C#?**
+
+👉 Expected Answer:
+
+* `Task.Result` is **blocking**, `await` is **non-blocking**.
+* `Result` wraps exceptions in `AggregateException`, while `await` unwraps and throws them directly.
+* `Result` can cause **deadlocks**, especially in UI/ASP.NET contexts.
+* `await` is the **preferred approach** for async programming.
+
+---
+
+# 20. **What happens if you use `Task.Result` in an ASP.NET or WPF application?**
+
+👉 Expected Answer:
+
+* It may cause a **deadlock** because the synchronization context waits for the task to complete, while the task is waiting for the synchronization context to free up.
+* Using `await` avoids this issue since it allows the thread to continue execution without blocking.
+
+---
+
+# 21. **How are exceptions handled differently between `Task.Result` and `await`?**
+
+👉 Expected Answer:
+
+* With `.Result`, exceptions are **wrapped inside `AggregateException`**.
+* With `await`, exceptions are **unwrapped** and rethrown directly.
+* Example:
+
+  ```csharp
+  try
+  {
+      var result = task.Result; // AggregateException
+  }
+  catch (AggregateException ex) { ... }
+
+  try
+  {
+      var result = await task; // Original exception
+  }
+  catch (Exception ex) { ... }
+  ```
+
+---
+
+# 22. **When would you use `Task.Result` instead of `await`?**
+
+👉 Expected Answer:
+
+* Rarely, but sometimes in a **synchronous context** (like `Main` in a console app before `async Main` was introduced in C# 7.1).
+* Or when you really want to **block** execution intentionally.
+
+---
+
+# 23. **Can using `Task.Result` degrade performance? Why?**
+
+👉 Expected Answer:
+
+* Yes, because it blocks a thread, preventing it from doing other work.
+* This reduces scalability in web applications where threads are a limited resource.
+* `await` is more **efficient** as it frees the thread while waiting.
+
+
+
