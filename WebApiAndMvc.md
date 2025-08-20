@@ -1664,7 +1664,7 @@ A Tuple is a data structure that can hold multiple values of different types in 
 * `ValueTuple` also implements structural equality, so it can be used as dictionary keys.
 
 
-#30 🔹 Middleware in ASP.NET Core (`Program.cs`)
+# 30 🔹 Middleware in ASP.NET Core (`Program.cs`)
 
 In **.NET 6**, the request pipeline is configured inside `Program.cs` using middleware.
 
