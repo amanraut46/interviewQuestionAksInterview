@@ -1553,7 +1553,7 @@ Perfect 👌, let’s make this **interview-friendly**.
 
 ---
 
-#24 🔹 What is a Tuple in C#?
+# 24 🔹 What is a Tuple in C#?
 
 * A **Tuple** is a **data structure** that can hold a fixed number of items of **different types**.
 * It was introduced in **.NET Framework 4.0**.
