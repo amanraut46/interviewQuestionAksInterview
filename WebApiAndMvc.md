@@ -1664,6 +1664,145 @@ A Tuple is a data structure that can hold multiple values of different types in 
 * `ValueTuple` also implements structural equality, so it can be used as dictionary keys.
 
 
+#30 🔹 Middleware in ASP.NET Core (`Program.cs`)
+
+In **.NET 6**, the request pipeline is configured inside `Program.cs` using middleware.
+
+Middleware methods:
+
+1. **`Use`**
+2. **`Run`**
+3. **`Map`**
+4. **`Next`** (middleware delegate to call the next middleware)
+
+---
+
+## 1. `Use`
+
+* Adds a **middleware component** to the pipeline.
+* You can do something **before and after** the next middleware by calling `await next()`.
+* Used for **logging, authentication, custom headers, etc.**
+
+```csharp
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Before request");
+    await next();  // calls the next middleware
+    Console.WriteLine("After request");
+});
+```
+
+---
+
+## 2. `Run`
+
+* Adds a **terminal middleware** → it handles the request and does **not call the next middleware**.
+* Ends the pipeline.
+* Used when you want to **short-circuit** the request.
+
+```csharp
+app.Run(async context =>
+{
+    await context.Response.WriteAsync("Hello from Run middleware!");
+});
+```
+
+---
+
+## 3. `Next`
+
+* Available inside a `Use` middleware.
+* It passes control to the **next middleware** in the pipeline.
+* If you don’t call `next()`, the pipeline stops there.
+
+```csharp
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Request received");
+    await next(); // continues to the next middleware
+    Console.WriteLine("Response sent");
+});
+```
+
+---
+
+## 4. `Map`
+
+* Branches the pipeline based on a **request path**.
+* Useful for handling specific routes without using controllers.
+
+```csharp
+app.Map("/hello", builder =>
+{
+    builder.Run(async context =>
+    {
+        await context.Response.WriteAsync("Hello from /hello endpoint!");
+    });
+});
+```
+
+---
+
+## 🔹 Middleware Execution Order Example
+
+```csharp
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Middleware 1 - Before");
+    await next();
+    Console.WriteLine("Middleware 1 - After");
+});
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Middleware 2 - Before");
+    await next();
+    Console.WriteLine("Middleware 2 - After");
+});
+
+app.Run(async context =>
+{
+    await context.Response.WriteAsync("Hello World!");
+});
+```
+
+➡️ Execution order:
+
+```
+Middleware 1 - Before
+Middleware 2 - Before
+Hello World!
+Middleware 2 - After
+Middleware 1 - After
+```
+
+# 31. **What is middleware in ASP.NET Core?**
+   👉 A middleware is a component in the request pipeline that can handle requests and responses.
+
+# 32. **What is the difference between `Use` and `Run` in middleware?**
+
+   * `Use`: Can call `next()` to pass control to the next middleware.
+   * `Run`: Terminal middleware; does not call the next one.
+
+# 33. **When would you use `Map` in ASP.NET Core?**
+   👉 To branch the pipeline based on the request path (e.g., `/api`, `/admin`).
+
+# 34. **What is the role of `next()` inside `Use` middleware?**
+   👉 It calls the next middleware. Without `next()`, the pipeline is short-circuited.
+
+# 35. **Can we use multiple `Run` middlewares? Why or why not?**
+   👉 Only the first `Run` executes, because it terminates the pipeline. Additional `Run` middlewares won’t be reached.
+
+# 36. **What happens if you don’t call `next()` inside `Use` middleware?**
+   👉 The request won’t move forward to the next middleware → pipeline stops there.
+
+# 37. **How does `Map` differ from using `Use` with conditions (like checking `context.Request.Path`)?**
+   👉 `Map` provides a cleaner way to branch by path, instead of writing `if` conditions manually inside `Use`.
+
+
+
+
+
 
 
 
