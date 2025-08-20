@@ -232,7 +232,7 @@ Here's a clear explanation of Refresh Token and JWT Token (JSON Web Token) — t
 
 ---
 
-# 🔐 What is a JWT Token?
+# 3 What is a JWT Token?
 
 JWT (JSON Web Token) is a compact, self-contained way to represent claims between two parties, typically used for access tokens in authentication.
 
@@ -333,7 +333,7 @@ Set expiration and revocation mechanisms.
 
 ---
 
-# The difference between **Queue** and **Topic** is primarily based on the messaging pattern they support. Here's a clear comparison, especially relevant in the context of Azure Service Bus or any messaging system:
+# 4 The difference between **Queue** and **Topic** is primarily based on the messaging pattern they support. Here's a clear comparison, especially relevant in the context of Azure Service Bus or any messaging system:
 
 ---
 
@@ -530,7 +530,7 @@ Note: The username is blank (`-u :<token>`) because only the PAT is needed.
 * **Revoke** immediately if compromised
 
 ---
-# Here's a clear comparison between **On-Premises SQL Server** and **Azure SQL Server (Azure SQL Database)**:
+# 5 Here's a clear comparison between **On-Premises SQL Server** and **Azure SQL Server (Azure SQL Database)**:
 
 ---
 
@@ -583,11 +583,53 @@ Note: The username is blank (`-u :<token>`) because only the PAT is needed.
 | High Availability | Manual setup       | Built-in                   |
 | Ideal for         | Legacy systems     | Cloud apps, SaaS platforms |
 
+Perfect 👍 If you’re preparing for **Azure interviews**, identity-related questions are very common since **security and authentication** are critical in cloud.
+
+Here are some **interview questions with answers** around **Azure Identity**:
+
+# 6 What is Identity in Azure?
+
+   👉 Identity in Azure is a digital representation of a user, application, or service stored in **Azure Active Directory (Azure AD)**, used for authentication and authorization.
+
+# 7 What is Azure Active Directory (Azure AD)?
+   👉 Azure AD is Microsoft’s cloud-based Identity and Access Management (IAM) service. It provides authentication, single sign-on (SSO), and role-based access control for users and applications.
+
+# 8. What is the difference between Authentication and Authorization in Azure?
+
+   - *Authentication:* Verifies *who you are* (user/password, token, certificate).
+   - *Authorization:* Defines *what you can access* (RBAC roles, permissions).
+
+# 9. What are Service Principals in Azure?
+   👉 A Service Principal is an identity for applications or services to access Azure resources. It’s like a “user account” for apps.
+
+# 10. What is a Managed Identity in Azure? Why is it useful?
+   👉 A Managed Identity is a special type of Service Principal created and managed by Azure. It allows Azure resources (VMs, App Service, Functions, Logic Apps, etc.) to authenticate to other Azure services **without managing credentials or secrets**.
+   ✅ Useful because it reduces the risk of secret leaks and automates credential management.
+# 11. Difference between System-assigned and User-assigned Managed Identity?
+
+   - **System-assigned:** Tied to the Azure resource (e.g., VM, App Service). If the resource is deleted, the identity is deleted too.
+   - **User-assigned:** Created as a standalone resource and can be attached to multiple Azure resources. It exists independently.
+
+# 12. How does Azure AD support external identities?
+   👉 Through **B2B collaboration** (partners using their own organizational accounts) and **B2C (Business to Customer)** for applications that need customer sign-in with Google, Facebook, etc.
+
+# 13. How would you secure an application running on Azure App Service to access Azure SQL Database?
+
+   -Use a **Managed Identity** for the App Service.
+   -Grant the identity access to SQL Database using **Azure AD authentication**.
+   -This avoids storing DB credentials in code or config.
+
+# 14. **What is Conditional Access in Azure AD?**
+   👉 Policies that enforce conditions (location, device, risk level, MFA) before granting access to resources.
+
+# 15. What is the difference between Azure AD and traditional Active Directory?
+
+- *Azure AD:* Cloud-based, identity-focused, supports OAuth, OpenID, SAML, federation.
+- *AD (on-premises):* Domain-joined devices, Kerberos authentication, GPOs.
+
 ---
 
-Let me know if you want a comparison between **Azure SQL Database vs Azure SQL Managed Instance** as well!
+⚡ Pro-tip: In interviews, they **love scenario-based questions** like:
 
-
-
-
-
+> *“Your API running in Azure needs to access Key Vault. How would you secure it?”*
+> ✅ Best answer: Use a **System-assigned Managed Identity** for the API → Grant Key Vault access using **Access Policies** or **RBAC**.
