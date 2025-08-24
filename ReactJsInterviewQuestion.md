@@ -1,4 +1,4 @@
-**1. Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
+# 1 **. Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
 
 ---
 
@@ -104,7 +104,7 @@ async function main() {
 main();
 ```
 
-**2.hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
+# 2 **.hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
 
 ---
 
