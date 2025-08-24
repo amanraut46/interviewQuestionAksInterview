@@ -209,7 +209,7 @@ Ah nice twist 😃 — now you mean **"Hosting in JavaScript"** (not server host
 ---
 
 
-# 6 **What is hoisting in JavaScript?**
+# 3 **What is hoisting in JavaScript?**
 In JavaScript, **hoisting** is the behavior where **variable and function declarations are moved (hoisted) to the top of their scope** (global or function scope) before code execution.
 
 This means you can use variables or functions **before they are declared** in the code (but with important differences between `var`, `let`, and `const`).
