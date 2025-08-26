@@ -108,7 +108,7 @@ Got it 👍 Let me format it properly with the **question and answer**.
 
 ---
 
-# 7 **Q: What is Lazy Loading in Entity Framework?**
+# 7 : What is Lazy Loading in Entity Framework?
 
 **Answer:**
 Lazy Loading in Entity Framework is a technique where related data (navigation properties) is **loaded from the database only when it is first accessed**, not when the parent entity is initially retrieved.
