@@ -104,3 +104,67 @@ In ADO.NET connection-oriented architecture, connections to the database are man
    }
    reader.Close(); // automatically closes connection too
    ```
+Got it 👍 Let me format it properly with the **question and answer**.
+
+---
+
+# 7 **Q: What is Lazy Loading in Entity Framework?**
+
+**Answer:**
+Lazy Loading in Entity Framework is a technique where related data (navigation properties) is **loaded from the database only when it is first accessed**, not when the parent entity is initially retrieved.
+
+---
+
+### **Example**
+
+```csharp
+public class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    // Virtual enables lazy loading
+    public virtual ICollection<Course> Courses { get; set; }
+}
+
+public class Course
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+}
+```
+
+```csharp
+var student = context.Students.FirstOrDefault(); 
+// Only student is loaded here
+
+var courses = student.Courses; 
+// At this point, EF fires another query to load Courses
+```
+
+---
+
+### **Key Points**
+
+* Works when navigation properties are marked as **virtual** (EF creates proxies).
+* Delays fetching until needed → improves initial performance.
+* Can cause **N+1 query problem** if looping over many entities.
+
+---
+
+### **Comparison of Loading Types**
+
+| Loading Type         | When Data Loads           | How to Use                      | Pros               | Cons                         |
+| -------------------- | ------------------------- | ------------------------------- | ------------------ | ---------------------------- |
+| **Lazy Loading**     | When property is accessed | `virtual` navigation properties | Saves initial cost | Multiple queries (N+1 issue) |
+| **Eager Loading**    | With main query           | `.Include()`                    | Fewer DB trips     | Loads unused data            |
+| **Explicit Loading** | On demand, manually       | `context.Entry(...).Load()`     | Full control       | More code                    |
+
+---
+
+✅ **In short:**
+Lazy Loading = Data is retrieved **only when accessed**, not immediately.
+
+---
+
+Do you also want me to prepare **short 2–3 line interview-friendly answers** for such questions (like a quick revision sheet)?
