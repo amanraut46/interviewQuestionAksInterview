@@ -1,4 +1,4 @@
-**1. Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
+# 1 **. Promise**, **async**, and **await** in JavaScript are closely related but serve different purposes. Here’s a clear breakdown of their differences and how they relate to each other:
 
 ---
 
@@ -104,7 +104,7 @@ async function main() {
 main();
 ```
 
-**2.hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
+# 2 **.hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
 
 ---
 
@@ -204,5 +204,75 @@ startTransition(() => {
 
 ---
 
-Let me know if you’d like examples or visuals to better understand the differences!
+Ah nice twist 😃 — now you mean **"Hosting in JavaScript"** (not server hosting, but the **JavaScript concept of hoisting**). Let’s frame it interview-style again:
+
+---
+
+
+# 3 **What is hoisting in JavaScript?**
+In JavaScript, **hoisting** is the behavior where **variable and function declarations are moved (hoisted) to the top of their scope** (global or function scope) before code execution.
+
+This means you can use variables or functions **before they are declared** in the code (but with important differences between `var`, `let`, and `const`).
+
+---
+
+### 🔹 Example with `var`
+
+```javascript
+console.log(a); // undefined (not error)
+var a = 10;
+```
+
+👉 Behind the scenes, JavaScript interprets this as:
+
+```javascript
+var a;      // declaration is hoisted
+console.log(a); // undefined
+a = 10;     // initialization happens here
+```
+
+---
+
+### 🔹 Example with `let` and `const`
+
+```javascript
+console.log(b); // ReferenceError
+let b = 20;
+```
+
+👉 Declarations with `let` and `const` are also hoisted, but they remain in a **temporal dead zone** (TDZ) until initialized. That’s why they throw an error if accessed before assignment.
+
+---
+
+### 🔹 Function Hoisting
+
+```javascript
+greet(); // works fine
+function greet() {
+  console.log("Hello!");
+}
+```
+
+👉 Entire function declarations are hoisted, so you can call them before they appear in code.
+
+But **function expressions** are different:
+
+```javascript
+sayHi(); // TypeError: sayHi is not a function
+var sayHi = function() {
+  console.log("Hi!");
+};
+```
+
+---
+
+👉 **In short:**
+Hoisting is JavaScript’s default behavior of moving **declarations** (not initializations) to the top of their scope.
+
+* `var` → hoisted but initialized as `undefined`.
+* `let` & `const` → hoisted but stay in **TDZ**, error if accessed early.
+* Functions → fully hoisted (declaration), but function expressions are not.
+
+---
+
 
