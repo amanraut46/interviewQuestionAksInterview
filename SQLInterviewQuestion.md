@@ -237,5 +237,52 @@ SELECT * FROM #Emp;
 
 ---
 
-Would you like me to also prepare a **real-world scenario-based example** (like when to use which one in a project) so you can give a stronger answer in interviews?
+# 8 Write a single SQL query to update a table column named `Flag` such that:
+
+* If the value is `0`, it should be updated to `1`.
+* If the value is `1`, it should be updated to `0`.
+
+---
+
+### ✅ Answer
+
+You can do this using a **CASE expression** in the `UPDATE` statement:
+
+```sql
+UPDATE YourTable
+SET Flag = CASE 
+              WHEN Flag = 0 THEN 1
+              WHEN Flag = 1 THEN 0
+              ELSE Flag  -- in case there are other values
+           END;
+```
+
+---
+
+### 🔄 Alternate Simple Way (Bitwise XOR for 0/1 toggle)
+
+If the column only contains `0` and `1`, you can simply do:
+
+```sql
+UPDATE YourTable
+SET Flag = 1 - Flag;
+```
+
+or
+
+```sql
+UPDATE YourTable
+SET Flag = Flag ^ 1;
+```
+
+(both will flip 0→1 and 1→0).
+
+---
+
+👉 Between these, the `1 - Flag` or `Flag ^ 1` is the **cleanest and fastest**, but `CASE` is safer if `Flag` might have other values.
+
+---
+
+Do you want me to also frame this as a **SQL interview question with follow-ups** (like performance considerations and constraints)?
+
 
