@@ -1492,7 +1492,7 @@ Perfect 👌, let’s make this **interview-friendly**.
 
 # 19. **What is the difference between `Task.Result` and `await` in C#?**
 
-👉 Expected Answer:
+ Expected Answer:
 
 * `Task.Result` is **blocking**, `await` is **non-blocking**.
 * `Result` wraps exceptions in `AggregateException`, while `await` unwraps and throws them directly.
@@ -1503,7 +1503,7 @@ Perfect 👌, let’s make this **interview-friendly**.
 
 # 20. **What happens if you use `Task.Result` in an ASP.NET or WPF application?**
 
-👉 Expected Answer:
+ Expected Answer:
 
 * It may cause a **deadlock** because the synchronization context waits for the task to complete, while the task is waiting for the synchronization context to free up.
 * Using `await` avoids this issue since it allows the thread to continue execution without blocking.
@@ -1512,7 +1512,7 @@ Perfect 👌, let’s make this **interview-friendly**.
 
 # 21. **How are exceptions handled differently between `Task.Result` and `await`?**
 
-👉 Expected Answer:
+ Expected Answer:
 
 * With `.Result`, exceptions are **wrapped inside `AggregateException`**.
 * With `await`, exceptions are **unwrapped** and rethrown directly.
@@ -1536,7 +1536,7 @@ Perfect 👌, let’s make this **interview-friendly**.
 
 # 22. **When would you use `Task.Result` instead of `await`?**
 
-👉 Expected Answer:
+ Expected Answer:
 
 * Rarely, but sometimes in a **synchronous context** (like `Main` in a console app before `async Main` was introduced in C# 7.1).
 * Or when you really want to **block** execution intentionally.
@@ -1545,7 +1545,7 @@ Perfect 👌, let’s make this **interview-friendly**.
 
 # 23. **Can using `Task.Result` degrade performance? Why?**
 
-👉 Expected Answer:
+ Expected Answer:
 
 * Yes, because it blocks a thread, preventing it from doing other work.
 * This reduces scalability in web applications where threads are a limited resource.
@@ -1621,14 +1621,14 @@ Console.WriteLine(name);  // Aman
 
 # 25. **What is a Tuple in C#?**
 
-👉 Answer:
+ Answer:
 A Tuple is a data structure that can hold multiple values of different types in a single object.
 
 ---
 
 # 26. **What is the difference between `Tuple` and `ValueTuple`?**
 
-👉 Answer:
+ Answer:
 
 * `Tuple` is a **class** (reference type), introduced in .NET 4.0.
 * `ValueTuple` is a **struct** (value type), introduced in C# 7.0.
@@ -1639,7 +1639,7 @@ A Tuple is a data structure that can hold multiple values of different types in 
 
 # 27. **When should you use a Tuple?**
 
-👉 Answer:
+ Answer:
 
 * When you need to return multiple values from a method.
 * When creating a new class just to hold temporary values would be overkill.
@@ -1648,7 +1648,7 @@ A Tuple is a data structure that can hold multiple values of different types in 
 
 # 28. **What are the limitations of Tuples?**
 
-👉 Answer:
+ Answer:
 
 * Tuples are not very descriptive → `Item1`, `Item2` (unless using `ValueTuple`).
 * Harder to understand in complex scenarios.
@@ -1658,7 +1658,7 @@ A Tuple is a data structure that can hold multiple values of different types in 
 
 # 29. **Can tuples be used as dictionary keys?**
 
-👉 Answer:
+ Answer:
 
 * Yes, since `Tuple` implements equality checks.
 * `ValueTuple` also implements structural equality, so it can be used as dictionary keys.
@@ -1777,7 +1777,7 @@ Middleware 1 - After
 ```
 
 # 31. **What is middleware in ASP.NET Core?**
-   👉 A middleware is a component in the request pipeline that can handle requests and responses.
+    A middleware is a component in the request pipeline that can handle requests and responses.
 
 # 32. **What is the difference between `Use` and `Run` in middleware?**
 
@@ -1785,19 +1785,19 @@ Middleware 1 - After
    * `Run`: Terminal middleware; does not call the next one.
 
 # 33. **When would you use `Map` in ASP.NET Core?**
-   👉 To branch the pipeline based on the request path (e.g., `/api`, `/admin`).
+    To branch the pipeline based on the request path (e.g., `/api`, `/admin`).
 
 # 34. **What is the role of `next()` inside `Use` middleware?**
-   👉 It calls the next middleware. Without `next()`, the pipeline is short-circuited.
+    It calls the next middleware. Without `next()`, the pipeline is short-circuited.
 
 # 35. **Can we use multiple `Run` middlewares? Why or why not?**
-   👉 Only the first `Run` executes, because it terminates the pipeline. Additional `Run` middlewares won’t be reached.
+    Only the first `Run` executes, because it terminates the pipeline. Additional `Run` middlewares won’t be reached.
 
 # 36. **What happens if you don’t call `next()` inside `Use` middleware?**
-   👉 The request won’t move forward to the next middleware → pipeline stops there.
+    The request won’t move forward to the next middleware → pipeline stops there.
 
 # 37. **How does `Map` differ from using `Use` with conditions (like checking `context.Request.Path`)?**
-   👉 `Map` provides a cleaner way to branch by path, instead of writing `if` conditions manually inside `Use`.
+    `Map` provides a cleaner way to branch by path, instead of writing `if` conditions manually inside `Use`.
 
 Got it 👍 — you want the **interview-style question** along with the explanation. Here’s how it can be framed and answered:
 
@@ -1836,7 +1836,7 @@ This way, Service Bus is used only for **lightweight metadata & orchestration**,
 
 ---
 
-👉 So, the best practice answer in an interview is:
+ So, the best practice answer in an interview is:
 **“We cannot send large files directly via Service Bus due to size limits. Instead, we use the Claim Check Pattern — upload the file to Blob Storage and send only a reference (like SAS URL) in Service Bus. The consumer then retrieves the file from Blob Storage.”**
 
 
