@@ -1801,7 +1801,7 @@ Middleware 1 - After
 
 Got it 👍 — you want the **interview-style question** along with the explanation. Here’s how it can be framed and answered:
 
-# 38 **“How can you send or handle large files using Azure Service Bus, given that Service Bus has message size limits?”**
+# 38 How can you send or handle large files using Azure Service Bus, given that Service Bus has message size limits?
 
 ---
 
