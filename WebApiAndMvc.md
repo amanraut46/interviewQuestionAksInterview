@@ -1799,6 +1799,46 @@ Middleware 1 - After
 # 37. **How does `Map` differ from using `Use` with conditions (like checking `context.Request.Path`)?**
    👉 `Map` provides a cleaner way to branch by path, instead of writing `if` conditions manually inside `Use`.
 
+Got it 👍 — you want the **interview-style question** along with the explanation. Here’s how it can be framed and answered:
+
+# 38 **“How can you send or handle large files using Azure Service Bus, given that Service Bus has message size limits?”**
+
+---
+
+### ✅ Answer
+
+Azure Service Bus has a **message size limit** (256 KB in Basic, 1 MB in Standard, and up to 100 MB in Premium). Because of this, we cannot directly send large files through Service Bus.
+
+The recommended approach is to use the **Claim Check Pattern**:
+
+1. **Store the large file** in **Azure Blob Storage** (or another durable storage).
+2. **Send only a reference** (like a **Blob URL** or **SAS token**) through Service Bus.
+3. The **consumer** retrieves the reference, then downloads the actual file from Blob Storage.
+
+This way, Service Bus is used only for **lightweight metadata & orchestration**, while the actual file transfer happens via Blob Storage.
+
+---
+
+### 🔹 Example Flow (Claim Check Pattern)
+
+1. **Producer** uploads file → Blob Storage.
+2. **Producer** sends a Service Bus message containing the **Blob SAS URL**.
+3. **Consumer** reads the message → fetches the file from Blob Storage.
+
+---
+
+### 🔹 Alternative Approach (if Blob not allowed)
+
+* Split the file into **chunks** smaller than Service Bus max message size.
+* Send each chunk as a separate message.
+* Consumer reassembles the file.
+* This is less efficient but sometimes required.
+
+---
+
+👉 So, the best practice answer in an interview is:
+**“We cannot send large files directly via Service Bus due to size limits. Instead, we use the Claim Check Pattern — upload the file to Blob Storage and send only a reference (like SAS URL) in Service Bus. The consumer then retrieves the file from Blob Storage.”**
+
 
 
 
