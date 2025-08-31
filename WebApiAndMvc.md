@@ -317,7 +317,7 @@ And use `[Authorize]` on controllers.
 
 ---
 
-#4 **How to optimize an API**:
+# 4 **How to optimize an API**:
 
 ---
 
