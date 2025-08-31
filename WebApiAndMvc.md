@@ -1332,14 +1332,8 @@ In a **database (like SQL Server)**:
 | Prevention      | Lock ordering, timeouts, minimal locking, concurrent structures |
 
 ---
-Sure! Here's the full **interview-style question with the LINQ query answer**:
-
----
-
 # 16 How would you find the 4th largest `SellValue` from a collection using LINQ query syntax in C#?**
-
 ---
-
 ### 🔸 **Answer:**
 
 ```csharp
@@ -1371,13 +1365,8 @@ Console.WriteLine($"4th largest sell value is: {fourthLargest}");
 Great! Here's a complete C# program that sorts an array in both **ascending** and **descending** order using the **Bubble Sort algorithm** (without using LINQ).
 
 ---
-
-### ✅ **Interview Question:**
-
 **Q: Write a C# program to sort an array in ascending and descending order using the Bubble Sort algorithm.**
-
 ---
-
 ### 🔸 **C# Program Using Bubble Sort:**
 
 ```csharp
@@ -1483,12 +1472,7 @@ Here’s a quick breakdown 👇
  • Use IQueryable for database queries.
  • Use List for general-purpose dynamic collections.
  • Use IList when you want flexibility or abstraction.
-
-Perfect 👌, let’s make this **interview-friendly**.
-
 ---
-
-## 🔹 Possible Interview Questions on `Task.Result` vs `await`
 
 # 19. **What is the difference between `Task.Result` and `await` in C#?**
 
@@ -1616,8 +1600,6 @@ Console.WriteLine(name);  // Aman
 4. **Pattern matching & deconstruction** for cleaner code.
 
 ---
-
-## 🔹 Interview Questions on Tuples
 
 # 25. **What is a Tuple in C#?**
 
@@ -1799,8 +1781,6 @@ Middleware 1 - After
 # 37. **How does `Map` differ from using `Use` with conditions (like checking `context.Request.Path`)?**
     `Map` provides a cleaner way to branch by path, instead of writing `if` conditions manually inside `Use`.
 
-Got it 👍 — you want the **interview-style question** along with the explanation. Here’s how it can be framed and answered:
-
 # 38 How can you send or handle large files using Azure Service Bus, given that Service Bus has message size limits?
 
 ---
@@ -1836,8 +1816,80 @@ This way, Service Bus is used only for **lightweight metadata & orchestration**,
 
 ---
 
- So, the best practice answer in an interview is:
-**“We cannot send large files directly via Service Bus due to size limits. Instead, we use the Claim Check Pattern — upload the file to Blob Storage and send only a reference (like SAS URL) in Service Bus. The consumer then retrieves the file from Blob Storage.”**
+
+# 39  Q: Before .NET Core introduced built-in dependency injection with `AddSingleton`, `AddTransient`, and `AddScoped`, how did developers implement dependency injection and manage object lifetimes in the .NET Framework?**
+
+---
+
+### ✅ Answer
+
+Before .NET Core (i.e., in **ASP.NET MVC 5 / Web API** era on .NET Framework), there was **no built-in DI container**. Developers had to use **third-party IoC (Inversion of Control) containers** to manage lifetimes (Singleton, Transient, Scoped). Some popular ones were:
+
+* **Unity**
+* **Autofac**
+* **Ninject**
+* **StructureMap**
+* **Castle Windsor**
+
+---
+
+### 🛠 How lifetimes were managed
+
+Equivalent mappings in IoC containers:
+
+| .NET Core DI Method | Unity Example                                                                          | Autofac Example                                                              | Meaning                          |
+| ------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------- |
+| `AddSingleton<T>()` | `container.RegisterType<IService, Service>(new ContainerControlledLifetimeManager());` | `builder.RegisterType<Service>().As<IService>().SingleInstance();`           | Single instance for entire app   |
+| `AddTransient<T>()` | `container.RegisterType<IService, Service>();`                                         | `builder.RegisterType<Service>().As<IService>().InstancePerDependency();`    | New instance each time           |
+| `AddScoped<T>()`    | `container.RegisterType<IService, Service>(new HierarchicalLifetimeManager());`        | `builder.RegisterType<Service>().As<IService>().InstancePerLifetimeScope();` | One instance per request (scope) |
+
+---
+
+### Example in ASP.NET MVC 5 (Unity)
+
+```csharp
+var container = new UnityContainer();
+
+// Singleton
+container.RegisterType<IService, Service>(
+    new ContainerControlledLifetimeManager());
+
+// Transient
+container.RegisterType<IRepository, Repository>();
+
+// Scoped (per request)
+container.RegisterType<IUnitOfWork, UnitOfWork>(
+    new HierarchicalLifetimeManager());
+
+// Set Dependency Resolver
+DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+```
+
+# 40 **Q: Why do we usually register logging services with `AddSingleton` in .NET Core?**
+
+---
+
+### ✅ Answer
+
+We use **`AddSingleton` for logging** because:
+
+1. **Single shared instance** – The logger does not need a new instance for every request. A single instance is sufficient for the entire application lifetime.
+2. **Thread-safe & lightweight** – Logging libraries (like `ILogger<T>`) are designed to be thread-safe and efficient. A singleton ensures consistent logging across requests without overhead.
+3. **Centralized resource usage** – A logger may maintain open file handles, connections, or buffers. Having multiple instances could cause file locks or resource contention.
+4. **Performance** – Since logging is used frequently, keeping it as a singleton avoids repeated object creation, improving performance.
+
+---
+
+### ✅ Example
+
+```csharp
+builder.Services.AddSingleton<ILogger, FileLogger>();
+```
+
+Here, only **one `FileLogger` instance** is created and shared across the app.
+
+---
+
 
 
 
