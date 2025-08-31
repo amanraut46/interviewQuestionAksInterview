@@ -1234,14 +1234,8 @@ Let me know if you'd like:
 Great question! Let's break it down clearly:
 
 ---
-
-## ❓ **Interview Question:**
-
 # 15 **What is a deadlock and when does it occur?**
-
-
 ## ✅ **Definition:**
-
 A **deadlock** is a situation where **two or more threads/processes are waiting for each other to release resources**, and **none of them ever proceed**.
 
 It’s like two people holding keys to each other’s lockers — and both are waiting for the other to open theirs first.
