@@ -104,7 +104,7 @@ async function main() {
 main();
 ```
 
-# 2 **.hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
+# 2 **.Hooks** and whether they behave **synchronously** or **asynchronously**, along with explanations and examples.
 
 ---
 
