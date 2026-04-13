@@ -1,6 +1,6 @@
 ## **Interview Question**
 
- # 1 What would you do if two microservices start failing simultaneously? How would you identify the root cause and fix the issue?**
+ # 1 What would you do if two microservices start failing simultaneously? How would you identify the root cause and fix the issue?
 
 ---
 
@@ -102,7 +102,7 @@ Depending on findings:
 > If two microservices fail simultaneously, I first check logs and monitoring to identify patterns. Then I look for shared dependencies like database, cache, or messaging systems. I verify recent deployments and infrastructure issues, and check for cascading failures between services. Once the root cause is identified, I fix it by resolving the dependency issue, scaling resources, or rolling back changes. Finally, I implement resilience patterns and monitoring to prevent future failures.
 
 ---
-# 2 What is a maximum threshold value in a system or microservices architecture?**
+# 2 What is a maximum threshold value in a system or microservices architecture?
 
 ---
 
@@ -180,7 +180,7 @@ Here’s a **proper interview-style question and answer** you can use:
 
 ---
 
-# 3 How do you implement a Retry Pattern in microservices?**
+# 3 How do you implement a Retry Pattern in microservices?
 
 ---
 
@@ -307,7 +307,7 @@ Service A calls Service B:
 Here’s a **properly framed interview question and answer** you can use:
 
 ---
-# 4 A SQL query works fine in the local environment but runs very slowly in the deployed (production) environment. How would you troubleshoot and fix it?**
+# 4 A SQL query works fine in the local environment but runs very slowly in the deployed (production) environment. How would you troubleshoot and fix it?
 
 ---
 
@@ -433,7 +433,7 @@ Here’s a **well-structured interview question and answer** you can use:
 
 ---
 
-# 5 During a file upload, the server crashes. How would you handle this situation in a microservices or web application?**
+# 5 During a file upload, the server crashes. How would you handle this situation in a microservices or web application?
 
 ---
 
@@ -554,7 +554,7 @@ Here’s a **clean and professional interview-style answer**:
 
 ---
 
-# 6 How do you handle multiple users updating the same row in a database using C#?**
+# 6 How do you handle multiple users updating the same row in a database using C#?
 
 ---
 
@@ -684,7 +684,7 @@ Here’s a **properly framed interview question and answer** you can use:
 
 ---
 
-# 7 What would you do if message sending fails in a service bus? How do you handle it in a microservices architecture?**
+# 7 What would you do if message sending fails in a service bus? How do you handle it in a microservices architecture?
 
 ---
 
