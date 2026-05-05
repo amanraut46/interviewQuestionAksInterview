@@ -247,4 +247,56 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 - EF Core automatically handles composite keys and cascade deletes.  
 
 ---
-Do you also want me to prepare **short 2–3 line interview-friendly answers** for such questions (like a quick revision sheet)?
+#  9 At the start of the program, the `users` collection has **112 rows** with `Id > 100`.  
+What will be the output of the following code?
+
+```csharp
+var data = (from k in users
+            where k.Id > 100
+            select k);
+
+var coll = (from k in users
+            where k.Id > 100
+            select k).ToList(); // 112 records
+
+users = users.Add(new User(){Id = 158});
+
+int dataCount = data.Count();
+int colCount = coll.Count();
+
+print(dataCount);
+print(colCount);
+```
+
+---
+
+### ✅ Answer:
+
+1. **`data`**  
+   - This is a **deferred LINQ query** (`IEnumerable`).  
+   - It is not executed until you call `.Count()`.  
+   - When `data.Count()` runs, it re-executes the query on the updated `users` collection.  
+   - Since a new user with `Id = 158` was added, the count becomes **113**.
+
+2. **`coll`**  
+   - This is a **materialized list** created by `.ToList()`.  
+   - It was executed immediately at the time of definition (before adding the new user).  
+   - So it contains only the original 112 records.  
+   - `coll.Count()` remains **112**.
+
+---
+
+### 📌 Final Output:
+```
+113
+112
+```
+
+---
+
+👉 **Key takeaway:**  
+- `IEnumerable` queries (`data`) are **deferred** and reflect changes in the source collection.  
+- `.ToList()` (`coll`) is **immediate execution** and does not reflect later changes.  
+
+---
+
