@@ -373,6 +373,76 @@ GROUP BY Department;
 
 ---
 
-Do you want me to also frame this as a **SQL interview question with follow-ups** (like performance considerations and constraints)?
+# 11 📊 What are Dirty Reads?
+- A **dirty read** occurs when a transaction reads data that has been modified by another transaction but not yet committed.
+- If the other transaction rolls back, the first transaction has read invalid data.
+- Example: Transaction A updates a balance but hasn’t committed. Transaction B reads that balance. If A rolls back, B’s read was “dirty.”
+
+# 12 What is the difference between `RANK()` and `DENSE_RANK()` in SQL? Give an example.
+
+---
+
+### ✅ Answer:
+
+**1. `RANK()`**
+- Assigns ranks based on ordering.
+- If multiple rows tie, they get the same rank.
+- The next rank **skips numbers** depending on how many tied rows exist.
+
+**Example:**
+```sql
+SELECT Name, Score, RANK() OVER (ORDER BY Score DESC) AS Rank
+FROM Students;
+```
+
+| Name  | Score | Rank |
+|-------|-------|------|
+| Alice | 90    | 1    |
+| Jane  | 90    | 1    |
+| John  | 85    | 3    |
+| Mark  | 85    | 3    |
+
+👉 Notice that **Rank 2 is skipped** because two students tied at Rank 1.
+
+---
+
+**2. `DENSE_RANK()`**
+- Similar to `RANK()`, but **does not skip ranks**.
+- Tied rows get the same rank, and the next rank is consecutive.
+
+**Example:**
+```sql
+SELECT Name, Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS DenseRank
+FROM Students;
+```
+
+| Name  | Score | DenseRank |
+|-------|-------|-----------|
+| Alice | 90    | 1         |
+| Jane  | 90    | 1         |
+| John  | 85    | 2         |
+| Mark  | 85    | 2         |
+
+👉 Here, ranks are **continuous** with no gaps.
+
+---
+
+### 📌 Quick Comparison
+
+| Feature              | RANK()                          | DENSE_RANK()                     |
+|-----------------------|---------------------------------|----------------------------------|
+| Handling ties         | Same rank for ties              | Same rank for ties               |
+| Next rank             | Skips numbers after ties        | No skipping, consecutive ranks   |
+| Example with ties     | 1, 1, 3, 3, 5                   | 1, 1, 2, 2, 3                    |
+| Use case              | Competitions (where gaps matter)| Analytics/reporting (continuous) |
+
+---
+
+👉 In short:  
+- Use **`RANK()`** when you want gaps (like sports tournaments).  
+- Use **`DENSE_RANK()`** when you want continuous ranking (like categorizing levels).  
+
+---
+
 
 

@@ -800,6 +800,21 @@ Example:
 > If message sending fails in Service Bus, I implement retries with exponential backoff, and if it still fails, I use a Dead Letter Queue to avoid message loss. I also use the Outbox pattern to store messages temporarily and retry later. Additionally, I ensure idempotency, logging, and monitoring to handle failures reliably.
 
 ---
+# 8  Microservice Design Patterns
+Common patterns include:
+1. **Decomposition Patterns**
+   - *By business capability* (split services by domain).
+   - *By subdomain* (align with DDD).
+2. **Integration Patterns**
+   - *API Gateway* (single entry point for clients).
+   - *Aggregator* (combine responses from multiple services).
+3. **Database Patterns**
+   - *Database per service* (each service owns its data).
+   - *Shared database* (less common, but sometimes used).
+4. **Observability Patterns**
+   - *Log aggregation*, *distributed tracing*, *circuit breaker*.
+5. **Resiliency Patterns**
+   - *Retry*, *Circuit Breaker*, *Bulkhead*, *Saga* (for distributed transactions)
 
 
 

@@ -1880,9 +1880,33 @@ We use **`AddSingleton` for logging** because:
 builder.Services.AddSingleton<ILogger, FileLogger>();
 ```
 
-Here, only **one `FileLogger` instance** is created and shared across the app.
+# 41 🔑 What is OAuth?
+- OAuth (Open Authorization) is an **open standard protocol** that allows applications to access resources on behalf of a user without sharing their credentials.
+- Example: When you log into a website using Google or Facebook, OAuth lets the site access your profile data securely without ever seeing your password.
+- It works by issuing **access tokens** after user consent, which the application uses to call APIs.
 
----
+# 42 🔐 How to Implement Custom Authentication in .NET Core Web API
+1. Create a **custom middleware** or **authentication handler**.
+2. Validate credentials (e.g., API key, custom token).
+3. On success, create a `ClaimsPrincipal` and attach it to `HttpContext.User`.
+4. Register the scheme in `Startup.cs` using `AddAuthentication()` and `AddScheme<T>()`.
+5. Apply `[Authorize]` attribute to controllers/actions.
+
+# 43 🔑 Difference Between JWT and OAuth
+- **JWT (JSON Web Token):**
+  - A **token format** (self-contained, includes claims).
+  - Used for authentication/authorization.
+  - Example: API issues JWT after login, client sends it in headers.
+- **OAuth:**
+  - A **protocol/authorization framework**.
+  - Defines how tokens (often JWTs) are issued and used.
+  - Example: OAuth flow issues JWT access tokens.
+
+👉 In short: OAuth is the **process**, JWT is one possible **token format** used in that process.
+
+
+
+
 
 
 

@@ -560,3 +560,18 @@ Here, `Add` is overloaded with different parameter signatures.
 ### ⚖️ Key Takeaway  
 - **Method Hiding** → Same method name in base and derived class, hides base implementation, decided at runtime based on reference type.  
 - **Method Overloading** → Same method name in the same class, different parameter signatures, resolved at compile time.  
+
+### 47 What is Garbage Collection?
+- Garbage Collection (GC) is the process by which the .NET runtime automatically frees memory occupied by objects that are no longer in use.
+- It prevents memory leaks by reclaiming unused memory and making it available for new allocations.
+
+### 48 Difference Between `Dispose()` and `Finalize()`
+- **Dispose():**
+  - Part of `IDisposable` interface.
+  - Called explicitly by developer (`obj.Dispose()`).
+  - Used to free **unmanaged resources** (like file handles, DB connections).
+- **Finalize():**
+  - Called by GC before object destruction.
+  - Used as a safety net to release unmanaged resources if `Dispose()` wasn’t called.
+- Best practice: Implement `Dispose()` and suppress `Finalize()` using `GC.SuppressFinalize()`.
+
