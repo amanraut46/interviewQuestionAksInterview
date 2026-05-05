@@ -282,6 +282,96 @@ SET Flag = Flag ^ 1;
 👉 Between these, the `1 - Flag` or `Flag ^ 1` is the **cleanest and fastest**, but `CASE` is safer if `Flag` might have other values.
 
 ---
+# 9 **What are ACID properties in databases?**
+
+---
+
+## ✅ Answer  
+
+### 1. **Atomicity**  
+- A transaction is **all-or-nothing**.  
+- If any part of the transaction fails, the entire transaction is rolled back.  
+- **Example:** Transferring ₹100 from Account A to Account B. If debit succeeds but credit fails, the whole transaction is undone.  
+
+---
+
+### 2. **Consistency**  
+- Ensures the database moves from one **valid state to another valid state**.  
+- All rules, constraints, and relationships must remain intact.  
+- **Example:** In a banking system, the total balance across accounts must remain constant before and after a transfer.  
+
+---
+
+### 3. **Isolation**  
+- Transactions run **independently** without interfering with each other.  
+- Prevents problems like:  
+  - **Dirty reads** (reading uncommitted data)  
+  - **Non-repeatable reads** (data changes between two reads)  
+  - **Phantom reads** (new rows appear during a transaction)  
+- **Example:** Two users transferring money at the same time should not affect each other’s results.  
+
+---
+
+### 4. **Durability**  
+- Once a transaction is **committed**, its changes are permanent—even if the system crashes.  
+- Achieved through logging and backup mechanisms.  
+- **Example:** After a successful transfer, the updated balances remain stored even if the server shuts down immediately.  
+
+---
+
+## 📌 Key Takeaway  
+- **Atomicity** → All-or-nothing execution.  
+- **Consistency** → Database remains valid.  
+- **Isolation** → Transactions don’t interfere.  
+- **Durability** → Changes persist permanently.  
+
+# 10 **How do you find the sum of department salaries of employees in SQL?**
+
+---
+
+### ✅ Answer  
+
+You can use the **`SUM()` aggregate function** along with **`GROUP BY`** to calculate the total salary for each department.
+
+---
+
+### 📌 Example Table  
+Suppose you have an `Employees` table:
+
+| EmpId | EmpName | Department | Salary |
+|-------|----------|------------|--------|
+| 1     | Aman     | IT         | 50000  |
+| 2     | Ravi     | HR         | 40000  |
+| 3     | Neha     | IT         | 60000  |
+| 4     | Priya    | Finance    | 45000  |
+| 5     | Arjun    | HR         | 35000  |
+
+---
+
+### 📌 SQL Query  
+```sql
+SELECT Department, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY Department;
+```
+
+---
+
+### 📌 Output  
+| Department | TotalSalary |
+|------------|-------------|
+| IT         | 110000      |
+| HR         | 75000       |
+| Finance    | 45000       |
+
+---
+
+### ⚖️ Key Takeaway  
+- `SUM(Salary)` → adds up all salaries.  
+- `GROUP BY Department` → groups employees by department before summing.  
+- This query is widely used in **payroll systems, HR dashboards, and reporting tools**.  
+
+---
 
 Do you want me to also frame this as a **SQL interview question with follow-ups** (like performance considerations and constraints)?
 

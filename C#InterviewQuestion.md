@@ -381,3 +381,182 @@ public static class Extensions {
    public static bool IsEven(this int n) => n % 2 == 0;
 }
 ```
+### **45. What is the difference between value types and reference types in C#?**
+
+---
+
+### ✅ Answer  
+
+In C#, the distinction lies in **how data is stored and accessed**:
+
+- **Value Types**  
+  - Store the actual data directly (usually on the stack).  
+  - When assigned or passed to a method, a *copy* of the value is made.  
+  - Cannot be `null` unless declared as `Nullable<T>`.  
+  - Examples: `int`, `float`, `bool`, `struct`, `enum`.  
+
+- **Reference Types**  
+  - Store a reference (pointer) to the actual data (on the heap).  
+  - When assigned or passed to a method, the *reference* is copied, so multiple variables can point to the same object.  
+  - Can be `null`.  
+  - Examples: `class`, `object`, `string`, `array`, `interface`, `delegate`.  
+
+---
+
+### 📌 Code Illustration  
+
+**Value Type Example:**
+```csharp
+int a = 10;
+int b = a;   // Copy value
+b = 20;
+
+Console.WriteLine(a); // 10
+Console.WriteLine(b); // 20
+```
+Here, `a` and `b` are independent because the value was copied.
+
+**Reference Type Example:**
+```csharp
+int[] arr1 = {1, 2, 3};
+int[] arr2 = arr1;   // Copy reference
+arr2[0] = 10;
+
+Console.WriteLine(arr1[0]); // 10
+Console.WriteLine(arr2[0]); // 10
+```
+Here, both `arr1` and `arr2` point to the same array in memory, so changes affect both.
+
+---
+
+### ⚖️ Key Takeaway  
+- **Value types** → independent copies, lightweight, faster.  
+- **Reference types** → shared references, flexible, managed by garbage collector.  
+
+---
+### **46 What is the difference between managed code and unmanaged code in .NET/C#?**
+
+---
+
+### ✅ Answer  
+
+- **Managed Code**  
+  - Code that runs under the control of the **Common Language Runtime (CLR)** in .NET.  
+  - CLR provides services like **memory management, garbage collection, type safety, exception handling, and security**.  
+  - Examples: C#, VB.NET, F#.  
+  - Benefits: safer, easier to maintain, automatic memory cleanup.  
+
+- **Unmanaged Code**  
+  - Code that runs **outside the CLR**, directly compiled to machine instructions.  
+  - The programmer must handle **memory allocation, deallocation, and error handling** manually.  
+  - Examples: C, C++, assembly code, COM components, Win32 APIs.  
+  - Benefits: faster execution and more control, but riskier (memory leaks, pointer errors).  
+
+---
+
+### 📌 Code Illustration  
+
+**Managed Code Example (C#):**
+```csharp
+public class Example
+{
+    public void ShowMessage()
+    {
+        Console.WriteLine("This is managed code!");
+    }
+}
+```
+- Runs under CLR, memory is automatically managed.
+
+**Unmanaged Code Example (C++):**
+```cpp
+#include <iostream>
+int main()
+{
+    int* p = new int(10); // manual allocation
+    std::cout << *p;
+    delete p;             // manual deallocation
+    return 0;
+}
+```
+- Programmer must explicitly allocate and free memory.
+
+---
+
+### ⚖️ Key Takeaway  
+- **Managed code** → safer, CLR handles memory and runtime services.  
+- **Unmanaged code** → faster and more flexible, but requires manual memory management and is prone to errors.  
+
+---
+
+### **47 What is the difference between method hiding and method overloading in C#?**
+
+---
+
+### ✅ Answer  
+
+- **Method Hiding**  
+  - Occurs when a derived class defines a method with the same name as a method in the base class.  
+  - The derived method *hides* the base class method.  
+  - Achieved using the `new` keyword.  
+  - Which method gets called depends on the reference type (base or derived).  
+
+**Example:**
+```csharp
+class BaseClass
+{
+    public void Show()
+    {
+        Console.WriteLine("Base Show");
+    }
+}
+
+class DerivedClass : BaseClass
+{
+    public new void Show()
+    {
+        Console.WriteLine("Derived Show");
+    }
+}
+
+BaseClass obj1 = new DerivedClass();
+obj1.Show(); // Output: Base Show
+
+DerivedClass obj2 = new DerivedClass();
+obj2.Show(); // Output: Derived Show
+```
+
+---
+
+- **Method Overloading**  
+  - Occurs when multiple methods in the same class share the same name but differ in **parameter list** (number or type of parameters).  
+  - It is a form of **compile-time polymorphism**.  
+  - No `new` keyword is required.  
+
+**Example:**
+```csharp
+class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+
+    public double Add(double a, double b)
+    {
+        return a + b;
+    }
+
+    public int Add(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+}
+```
+Here, `Add` is overloaded with different parameter signatures.
+
+---
+
+### ⚖️ Key Takeaway  
+- **Method Hiding** → Same method name in base and derived class, hides base implementation, decided at runtime based on reference type.  
+- **Method Overloading** → Same method name in the same class, different parameter signatures, resolved at compile time.  

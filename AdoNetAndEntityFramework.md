@@ -159,5 +159,92 @@ var courses = student.Courses;
 Lazy Loading = Data is retrieved **only when accessed**, not immediately.
 
 ---
+# 8 **How do you create a many-to-many relationship in Entity Framework Core (EF Core)?**
 
+### ✅ Answer  
+
+In EF Core, a many-to-many relationship is created by defining navigation properties on both entities. EF Core automatically generates a join table, or you can explicitly configure one if you need more control.
+
+---
+
+#### 🔹 Example 1: Implicit Join Table  
+```csharp
+public class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public List<Course> Courses { get; set; } = new();
+}
+
+public class Course
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+
+    public List<Student> Students { get; set; } = new();
+}
+```
+
+- EF Core will create a join table (e.g., `StudentCourse`) automatically.  
+- No need to define the join entity unless you want extra columns.
+
+---
+
+#### 🔹 Example 2: Fluent API Customization  
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Student>()
+        .HasMany(s => s.Courses)
+        .WithMany(c => c.Students)
+        .UsingEntity(j => j.ToTable("Enrollments"));
+}
+```
+
+- This renames the join table to **Enrollments**.  
+- EF Core still manages the relationship automatically.
+
+---
+
+#### 🔹 Example 3: Explicit Join Entity (with extra fields)  
+```csharp
+public class Enrollment
+{
+    public int StudentId { get; set; }
+    public Student Student { get; set; }
+
+    public int CourseId { get; set; }
+    public Course Course { get; set; }
+
+    public DateTime EnrollmentDate { get; set; }
+}
+```
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Enrollment>()
+        .HasKey(e => new { e.StudentId, e.CourseId });
+
+    modelBuilder.Entity<Enrollment>()
+        .HasOne(e => e.Student)
+        .WithMany(s => s.Enrollments)
+        .HasForeignKey(e => e.StudentId);
+
+    modelBuilder.Entity<Enrollment>()
+        .HasOne(e => e.Course)
+        .WithMany(c => c.Enrollments)
+        .HasForeignKey(e => e.CourseId);
+}
+```
+
+---
+
+### 📌 Key Takeaways
+- Use **implicit join tables** when you don’t need extra columns.  
+- Use **explicit join entities** when you need metadata (like `EnrollmentDate`).  
+- EF Core automatically handles composite keys and cascade deletes.  
+
+---
 Do you also want me to prepare **short 2–3 line interview-friendly answers** for such questions (like a quick revision sheet)?
