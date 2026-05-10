@@ -1902,8 +1902,59 @@ builder.Services.AddSingleton<ILogger, FileLogger>();
   - Defines how tokens (often JWTs) are issued and used.
   - Example: OAuth flow issues JWT access tokens.
 
-👉 In short: OAuth is the **process**, JWT is one possible **token format** used in that process.
+# 44  What is an Application Pool?
+- **Definition:** A logical unit in **Internet Information Services (IIS)** that defines how web applications are executed by worker processes.  
+- **Worker Process (`w3wp.exe`):** Each application pool runs one or more worker processes. These processes handle requests for the applications assigned to the pool.  
+- **Isolation:** Applications in different pools are separated by process boundaries. If one pool fails or recycles, others remain unaffected.  
+- **Security:** Each pool can run under a different identity (service account), allowing fine-grained security control.  
+- **Performance:** You can configure multiple pools to balance load or run apps with different .NET versions.  
 
+---
+
+## ⚙️ Key Features
+- **Reliability:** Prevents one faulty app from crashing the entire server.  
+- **Manageability:** Allows independent configuration of apps (e.g., .NET version, 32/64-bit mode).  
+- **Web Garden:** A single pool can run multiple worker processes for better throughput.  
+- **Integration Modes:**  
+  - **Integrated Mode** (default): Uses IIS’s unified pipeline for all content types.  
+  - **Classic Mode:** Uses the older ASP.NET ISAPI pipeline.  [Microsoft Learn](https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/applicationpools/)  
+
+---
+# 45 How do you host an application on IIS?
+
+## ✅ Answer  
+To host an application on **Internet Information Services (IIS)**, follow these steps:
+
+1. **Install IIS**  
+   - Go to *Control Panel → Programs and Features → Turn Windows features on or off*.  
+   - Enable **Internet Information Services**.
+
+2. **Prepare Your Application**  
+   - Publish your application (e.g., using Visual Studio or `dotnet publish`).  
+   - Copy the published files to a folder (e.g., `C:\inetpub\wwwroot\MyApp`).
+
+3. **Open IIS Manager**  
+   - Press `Win + R`, type `inetmgr`, and hit Enter.
+
+4. **Create an Application Pool**  
+   - Right-click **Application Pools → Add Application Pool**.  
+   - Name it (e.g., `MyAppPool`), select the correct **.NET CLR version**, and set pipeline mode to **Integrated**.
+
+5. **Add a New Website**  
+   - Right-click **Sites → Add Website**.  
+   - Provide:  
+     - **Site name** (e.g., `MyApp`)  
+     - **Physical path** (folder with your app files)  
+     - **Binding** (protocol, port, hostname)
+
+6. **Assign Application Pool**  
+   - Link the site to the application pool you created.
+
+7. **Start and Test the Site**  
+   - Right-click the site → **Manage Website → Start**.  
+   - Open a browser and go to `http://localhost` or `http://localhost:port`.
+
+---
 
 
 

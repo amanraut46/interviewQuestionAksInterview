@@ -444,5 +444,126 @@ FROM Students;
 
 ---
 
+ 
+# 13 What is normalization in databases? Explain normal forms with rules and examples.
+
+---
+
+## 📖 Definition  
+**Normalization** is the process of organizing data in a relational database into multiple related tables to reduce redundancy and improve data integrity. Each stage of normalization is called a **Normal Form (NF)**, and each has specific rules.
+
+---
+
+## 📊 Normal Forms with Examples  
+
+### 🔹 **1NF (First Normal Form)**  
+**Definition:** A table is in 1NF if all attributes contain only atomic (indivisible) values, and there are no repeating groups.  
+**Rule:**  
+- Each column must hold atomic values.  
+- No repeating groups or multi-valued attributes.  
+
+**Example (Before 1NF):**  
+| StudentID | StudentName | Courses         |  
+|-----------|-------------|-----------------|  
+| 1         | Aman        | Math, Physics   |  
+
+**After 1NF:**  
+| StudentID | StudentName | Course   |  
+|-----------|-------------|----------|  
+| 1         | Aman        | Math     |  
+| 1         | Aman        | Physics  |  
+
+---
+
+### 🔹 **2NF (Second Normal Form)**  
+**Definition:** A table is in 2NF if it is in 1NF and all non-key attributes are fully dependent on the entire primary key (no partial dependency).  
+**Rule:**  
+- Must be in 1NF.  
+- No partial dependency (non-key attributes must depend on the whole primary key).  
+
+**Example (Before 2NF):**  
+| StudentID | CourseID | StudentName | CourseName |  
+|-----------|----------|-------------|------------|  
+| 1         | 101      | Aman        | Math       |  
+
+Here, `StudentName` depends only on `StudentID`, not on the composite key (`StudentID + CourseID`).  
+
+**After 2NF:**  
+**Students Table**  
+| StudentID | StudentName |  
+|-----------|-------------|  
+| 1         | Aman        |  
+
+**Courses Table**  
+| CourseID | CourseName |  
+|----------|------------|  
+| 101      | Math       |  
+
+**Enrollment Table**  
+| StudentID | CourseID |  
+|-----------|----------|  
+| 1         | 101      |  
+
+---
+
+### 🔹 **3NF (Third Normal Form)**  
+**Definition:** A table is in 3NF if it is in 2NF and has no transitive dependency (non-key attributes should not depend on other non-key attributes).  
+**Rule:**  
+- Must be in 2NF.  
+- No transitive dependency.  
+
+**Example (Before 3NF):**  
+| StudentID | StudentName | DeptName | DeptHead   |  
+|-----------|-------------|----------|------------|  
+| 1         | Aman        | Science  | Dr. Mehta  |  
+
+Here, `DeptHead` depends on `DeptName`, not directly on `StudentID`.  
+
+**After 3NF:**  
+**Students Table**  
+| StudentID | StudentName | DeptName |  
+|-----------|-------------|----------|  
+| 1         | Aman        | Science  |  
+
+**Departments Table**  
+| DeptName | DeptHead   |  
+|----------|------------|  
+| Science  | Dr. Mehta  |  
+
+---
+
+### 🔹 **BCNF (Boyce-Codd Normal Form)**  
+**Definition:** A stronger version of 3NF. A table is in BCNF if every determinant is a candidate key.  
+**Rule:**  
+- Must be in 3NF.  
+- For every functional dependency (X → Y), X must be a candidate key.  
+
+**Example (Before BCNF):**  
+| CourseID | Instructor | Room |  
+|----------|------------|------|  
+| 101      | Dr. A      | R1   |  
+
+If one instructor always teaches in one room, then `Instructor → Room` is a dependency, but `Instructor` is not a candidate key.  
+
+**After BCNF:**  
+**Course Table**  
+| CourseID | Instructor |  
+|----------|------------|  
+| 101      | Dr. A      |  
+
+**Instructor Table**  
+| Instructor | Room |  
+|------------|------|  
+| Dr. A      | R1   |  
+
+---
+
+## 🎯 Benefits of Normalization
+- Eliminates redundancy.  
+- Ensures data consistency.  
+- Simplifies updates and maintenance.  
+- Improves query efficiency.  
+
+---
 
 
